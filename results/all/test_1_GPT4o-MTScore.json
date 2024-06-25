@@ -1,0 +1,13 @@
+{
+    "Average Score": 1.0,
+    "Formatted Data": {
+        "test_2": {
+            "Brief Reasoning Statement": "The changes in the frames are minimal. The scene is nearly identical across all key frames, with only very subtle changes in lighting and almost no perceptible movement or dynamic changes in the elements of the scene. The overall variation is not significant, and the scene appears almost static.",
+            "Score": "1"
+        },
+        "test_1": {
+            "Brief Reasoning Statement": "The changes in the frames are minimal as the scene appears nearly identical with tiny variations in the appearance of the owl figure being 3D printed. Throughout the sequence, the figure looks the same, and there is no observable significant activity or movement except for a minor appearance of a hand in the final frame.",
+            "Score": "1"
+        }
+    }
+}
