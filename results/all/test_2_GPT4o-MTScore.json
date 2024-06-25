@@ -1,0 +1,13 @@
+{
+    "Average Score": 3.0,
+    "Formatted Data": {
+        "test_4": {
+            "Brief Reasoning Statement": "The changes in the frames are quite significant as we see the human interaction with the printed object, making adjustments and repositioning it. The variation in the video includes not only the movement of hands manipulating the print but also the progressive building and completion process of the print. The scene exhibits both quantitative changes (human interaction and incremental adjustments) and qualitative changes (completed structure).",
+            "Score": "4"
+        },
+        "test_3": {
+            "Brief Reasoning Statement": "The changes in the frames are minimal for the most part, displaying static mechanical components with no noticeable movement or activity. Only towards the end of the sequence, there is a minor change with the introduction of a hand making slight adjustments to the machinery. The visual effect is primarily static, with subtle and infrequent changes.",
+            "Score": "2"
+        }
+    }
+}
