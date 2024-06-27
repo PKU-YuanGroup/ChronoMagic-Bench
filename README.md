@@ -12,11 +12,11 @@
 
 
 
-[![hf_space](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue.svg)](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench)
+[![hf_space](https://img.shields.io/badge/🤗-LeaderBoard-blue.svg)](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench)
 [![arXiv](https://img.shields.io/badge/Arxiv-2406.18522-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.18522) 
 [![Home Page](https://img.shields.io/badge/Project-<Website>-blue.svg)](https://pku-yuangroup.github.io/ChronoMagic-Bench/) 
-[![Dataset](https://img.shields.io/badge/Dataset-<HuggingFace>-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro)
-[![Dataset](https://img.shields.io/badge/Dataset-<HuggingFace>-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
+[![Dataset](https://img.shields.io/badge/Dataset-ChronoMagicPro-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro)
+[![Dataset](https://img.shields.io/badge/Dataset-ChronoMagicProH-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LICENSE) 
 ![GitHub Repo stars](https://img.shields.io/github/stars/PKU-YuanGroup/ChronoMagic-Bench)
 
