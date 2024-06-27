@@ -1,3 +1,6 @@
+<div align=center>
+<img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/images/logo_bench_00.jpg?raw=true" width="300px">
+</div>
 <h2 align="center"> <a href="https://arxiv.org/abs/2406.18522">ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of 
 
 <a href="https://arxiv.org/abs/2406.18522"> Text-to-Time-lapse Video Generation </a></h2>
