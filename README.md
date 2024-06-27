@@ -1,6 +1,6 @@
-<h2 align="center"> <a href="https://arxiv.org/abs/2404.05014">ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of 
+<h2 align="center"> <a href="https://arxiv.org/abs/2406.18522">ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of 
 
-<a href="https://arxiv.org/abs/2404.05014"> Text-to-Time-lapse Video Generation </a></h2>
+<a href="https://arxiv.org/abs/2406.18522"> Text-to-Time-lapse Video Generation </a></h2>
 
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.  </h2>
 
@@ -10,7 +10,7 @@
 
 
 [![hf_space](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue.svg)](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench)
-[![arXiv](https://img.shields.io/badge/Arxiv-2404.05014-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2404.05014) 
+[![arXiv](https://img.shields.io/badge/Arxiv-2404.05014-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.18522) 
 [![Home Page](https://img.shields.io/badge/Project-<Website>-blue.svg)](https://pku-yuangroup.github.io/ChronoMagic-Bench/) 
 [![Dataset](https://img.shields.io/badge/Dataset-<HuggingFace>-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro)
 [![Dataset](https://img.shields.io/badge/Dataset-<HuggingFace>-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
@@ -49,7 +49,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 * ⏳⏳⏳ Release the code of the "Multi-Aspect Data Preprocessing", which is used to process the dataset. The code is being organized. 
 * ⏳⏳⏳ Support evaluating customized videos. The code and instructions are being organized. 
 * `[2024.06.28]`  🔥 We released the **ChronoMagic-Pro** and  **ChronoMagic-ProH** datasets. The datasets include **460K** and **150K** time-lapse video-text pairs respectively and can be downloaded at  [HF-Dataset-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and [HF-Dataset-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH).
-* `[2024.06.27]`  🔥 We release the **arXiv paper** and **Leaderboard** for *ChronoMagic-Bench*, and you can click [here](https://arxiv.org/abs/2404.05014) to read the paper and [here](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench) to see the leaderboard.
+* `[2024.06.27]`  🔥 We release the **arXiv paper** and **Leaderboard** for *ChronoMagic-Bench*, and you can click [here](https://arxiv.org/abs/2406.18522) to read the paper and [here](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench) to see the leaderboard.
 * `[2024.06.26]`  🔥 We release the **testing prompts**, **reference videos** and **generated results** by different models in *ChronoMagic-Bench*, and you can click [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench) to see more details.
 * `[2024.06.25]`  🔥 **All codes & datasets** are coming soon! Stay tuned 👀!
 
@@ -236,11 +236,14 @@ rm -r flash-attention
 If you find our paper and code useful in your research, please consider giving a star :star: and citation :pencil:.
 
 ```BibTeX
-@article{yuan2024magictime,
-  title={MagicTime: Time-lapse Video Generation Models as Metamorphic Simulators},
-  author={Yuan, Shenghai and Huang, Jinfa and Shi, Yujun and Xu, Yongqi and Zhu, Ruijie and Lin, Bin and Cheng, Xinhua and Yuan, Li and Luo, Jiebo},
-  journal={arXiv preprint arXiv:2404.05014},
-  year={2024}
+@misc{yuan2024chronomagicbenchbenchmarkmetamorphicevaluation,
+      title={ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation}, 
+      author={Shenghai Yuan and Jinfa Huang and Yongqi Xu and Yaoyang Liu and Shaofeng Zhang and Yujun Shi and Ruijie Zhu and Xinhua Cheng and Jiebo Luo and Li Yuan},
+      year={2024},
+      eprint={2406.18522},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2406.18522}, 
 }
 ```
 
