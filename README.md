@@ -13,7 +13,7 @@
 
 
 [![hf_space](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue.svg)](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench)
-[![arXiv](https://img.shields.io/badge/Arxiv-2404.05014-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.18522) 
+[![arXiv](https://img.shields.io/badge/Arxiv-2406.18522-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.18522) 
 [![Home Page](https://img.shields.io/badge/Project-<Website>-blue.svg)](https://pku-yuangroup.github.io/ChronoMagic-Bench/) 
 [![Dataset](https://img.shields.io/badge/Dataset-<HuggingFace>-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro)
 [![Dataset](https://img.shields.io/badge/Dataset-<HuggingFace>-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
