@@ -12,7 +12,12 @@ CSV_DIR_CHRONOMAGIC_BENCH_150 = "./file/results_ChronoMagic-Bench-150.csv"
 
 COLUMN_NAMES = MODEL_INFO + ALL_RESULTS
 
-LEADERBORAD_INTRODUCTION = """# ChronoMagic-Bench Leaderboard
+LEADERBORAD_INTRODUCTION = """
+    <div style='display: flex; align-items: center; justify-content: center; text-align: center;'>
+        <img src='https://www.pnglog.com/MqiNJ0.jpg' style='width: 600px; height: auto; margin-right: 10px;' />
+    </div>
+
+    # ChronoMagic-Bench Leaderboard
     
     Welcome to the leaderboard of the ChronoMagic-Bench! 
      
@@ -20,7 +25,7 @@ LEADERBORAD_INTRODUCTION = """# ChronoMagic-Bench Leaderboard
     
     If you like our project, please give us a star ⭐ on GitHub for the latest update.
 
-    [GitHub](https://github.com/PKU-YuanGroup/ChronoMagic-Bench) | [arXiv](https://arxiv.org/abs/2404.05014) | [Home Page](https://pku-yuangroup.github.io/ChronoMagic-Bench/) | [ChronoMagic-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) | [ChronoMagic-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
+    [GitHub](https://github.com/PKU-YuanGroup/ChronoMagic-Bench) | [arXiv](https://arxiv.org/abs/2406.18522) | [Home Page](https://pku-yuangroup.github.io/ChronoMagic-Bench/) | [ChronoMagic-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) | [ChronoMagic-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
 """
 
 SUBMIT_INTRODUCTION = """# Submit Introduction
