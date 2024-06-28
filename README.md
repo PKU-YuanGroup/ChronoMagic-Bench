@@ -11,13 +11,13 @@
 <h5 align="center">
 
 
-
 [![hf_space](https://img.shields.io/badge/🤗-LeaderBoard-blue.svg)](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench)
 [![hf_space](https://img.shields.io/badge/🤗-Paper%20In%20HF-red.svg)](https://huggingface.co/papers/2406.18522)
 [![arXiv](https://img.shields.io/badge/Arxiv-2406.18522-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2406.18522) 
 [![Home Page](https://img.shields.io/badge/Project-<Website>-blue.svg)](https://pku-yuangroup.github.io/ChronoMagic-Bench/) 
 [![Dataset](https://img.shields.io/badge/Dataset-ChronoMagicPro-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro)
 [![Dataset](https://img.shields.io/badge/Dataset-ChronoMagicProH-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
+[![Dataset Download](https://img.shields.io/badge/Download-Sampled_Videos-red)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results)
 [![zhihu](https://img.shields.io/badge/-Twitter@Jinfa%20Huang%20-black?logo=twitter&logoColor=1D9BF0)](https://twitter.com/vhjf36495872/status/1806151450441159024?s=61&t=lLg2j2-sZ9igea_Cj3ToLw)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LICENSE) 
 ![GitHub Repo stars](https://img.shields.io/github/stars/PKU-YuanGroup/ChronoMagic-Bench)
@@ -224,6 +224,119 @@ cd flash-attention/csrc/layer_norm && pip install .
 cd ../../../
 rm -r flash-attention
 ```
+
+### Download Checkpoints
+
+```bash
+huggingface-cli download --repo-type model \
+--resume-download BestWishYsh/ChronoMagic-Bench \
+--local-dir BestWishYsh/ChronoMagic-Bench \
+--local-dir-use-symlinks False
+```
+
+## :hammer: Usage
+
+Use *ChronoMagic-Bench* to evaluate videos, and video generative models.
+
+### Prepare Videos for Evaluation
+
+The generated videos should be named corresponding to the prompt ID in ChronoMagic-Bench and placed in the evaluation folder, which is structured as follows. We also provide input examples in the ['toy_video'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/toy_video) . ()
+
+```
+# for ChronoMagic-Bench
+`-- input_video_folder
+    `-- model_name_a
+        |-- 1
+        |   |-- 3d_printing_08.mp4
+        |   `-- ...
+        |-- 2
+        |   |-- 3d_printing_08.mp4
+        |   `-- ...
+        `-- 3
+            |-- 3d_printing_08.mp4
+            `-- ...
+    `-- model_name_b
+        |-- 1
+        |   |-- 3d_printing_08.mp4
+        |   `-- ...
+        |-- 2
+        |   |-- 3d_printing_08.mp4
+        |   `-- ...
+        `-- 3
+            |-- 3d_printing_08.mp4
+            `-- ...
+            
+# for ChronoMagic-Bench-150
+-- input_video_folder
+    |-- model_name_a
+    |   |-- 3d_printing_08.mp4
+    |   `-- animal_04.mp4
+    |   `-- ...
+    |-- model_name_b
+    |   |-- 3d_printing_08.mp4
+    |   `-- ...
+    `-- ...
+```
+
+The filenames of all videos to be evaluated should be "<u>videoid</u>.mp4". For example, if the <u>videoid</u> is 3d_printing_08, the video filename should be "3d_printing_08.mp4". If this naming convention is not followed, the text relevance cannot be evaluated.
+
+### Get MTScore, CHScore and GPT4o-MTScore
+
+We provide output examples in the ['results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/results). You can run the following commands for testing, then modify the relevant parameters (such as *<u>model_names</u>*, <u>*input_folder*</u>, and *openai_api*) to suit the text-to-video (T2V) generation model you want to evaluate.
+
+```bash
+python evaluate.py \
+  --model_names test \
+  # or more than one model
+  # --model_names test abc  \
+  --input_folder toy_video \
+  --output_folder results \
+  --video_frames_folder video_frames_folder_temp \
+  --model_pth_CHScore cotracker2.pth \
+  --model_pth_MTScore InternVideo2-stage2_1b-224p-f4.pt \
+  --num_workers 8 \
+  --openai_api "sk-UybXXX" \
+```
+
+If you only want to evaluate any one of the metrics instead of calculating all of them, you can follow the step below. Before running, please modify the parameters in *<u>'xxx.sh'</u>* as needed. (If you want to obtain the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) to submit to the [leaderboard](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench), you can organize the output files in *MTScore / CHScore / GPT4o-MTScore* according to ['results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/results) and then proceed with the following steps.)
+
+```bash
+# for MTScore
+cd MTScore
+bash get_chscore.sh
+
+# for CHScore
+cd CHScore
+bash get_mtscore.sh
+
+# for GPT4o-MTScore
+cd GPT4o_MTScore
+bash get_gp4omtscore.sh
+```
+
+### Get UMT-FVD and UMTScore
+
+Please refer to the folder [UMT](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/UMT) for how to compute the UMTScore.
+
+### Get File and Submit to Leaderboard
+
+```bash
+python get_uploaded_json.py \
+  --input_path results/all \
+  --output_path results
+```
+
+After completing the above steps, you will obtain [ChronoMagic-Bench-Input.json](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json), and then you need to manually fill the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) with UMT-FVD and UMTScore (as we calculate them separately). Finally, you can submit the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) to [HuggingFace](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench).
+
+##  :bookmark_tabs: Benchmark Prompts 
+
+We provide *prompt lists* and the *reference videos* of *ChronoMagic-Bench* at [Hugging Face](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Captions). You can use this to sample videos for evaluation of your model.
+
+## :surfer: Sampled Videos
+
+[![Dataset Download](https://img.shields.io/badge/Download-Sampled_Videos-red)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results)
+
+To facilitate future research and to ensure full transparency, we release all the videos we sampled and used for *ChronoMagic-Bench* evaluation. You can download them on [Hugging Face](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results). We also provide detailed explanations of the sampled videos and detailed setting for the models under evaluation [here](https://arxiv.org/abs/2406.18522).
 
 ## 👍 Acknowledgement
 

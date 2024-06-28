@@ -6,20 +6,20 @@ from collections import defaultdict
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Merge JSON files with total average scores.")
-    parser.add_argument("--folder_path", type=str, default="results/all", help="The path to the folder containing the JSON files.")
+    parser.add_argument("--input_path", type=str, default="results/all", help="The path to the folder containing the JSON files.")
     parser.add_argument("--output_path", type=str, default="results", help="The filename for the merged results.")
     return parser.parse_args()
 
-def merge_scores(folder_path, output_path, patterns, score_keys, result_keys, output_filename):
+def merge_scores(input_path, output_path, patterns, score_keys, result_keys, output_filename):
     results = defaultdict(lambda: defaultdict(list))
 
-    for filename in os.listdir(folder_path):
+    for filename in os.listdir(input_path):
         for pattern, score_key, result_key in zip(patterns, score_keys, result_keys):
             prefix_pattern = re.compile(pattern)
             match = prefix_pattern.match(filename)
             if match:
                 prefix = match.group(1)
-                with open(os.path.join(folder_path, filename), 'r') as file:
+                with open(os.path.join(input_path, filename), 'r') as file:
                     data = json.load(file)
                     results[prefix][result_key].append(data[score_key])
 
@@ -40,7 +40,7 @@ def merge_scores(folder_path, output_path, patterns, score_keys, result_keys, ou
 
 def main():
     args = parse_args()
-    folder_path = args.folder_path
+    input_path = args.input_path
     output_path = args.output_path
 
     patterns = [
@@ -61,7 +61,7 @@ def main():
         'Average_MTScore'
     ]
 
-    merge_scores(folder_path, output_path, patterns, score_keys, result_keys, 'ChronoMagic-Bench-Input.json')
+    merge_scores(input_path, output_path, patterns, score_keys, result_keys, 'ChronoMagic-Bench-Input.json')
 
 if __name__ == "__main__":
     args = parse_args()

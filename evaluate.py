@@ -11,16 +11,16 @@ def run_command(command):
 
 def main():
     parser = argparse.ArgumentParser(description="Run video processing pipeline.")
-    parser.add_argument('--model_names', nargs='+', default=["test", "test"], help="Name of the models.")
+    parser.add_argument('--model_names', nargs='+', default=["test", "abc"], help="Name of the models.")
     parser.add_argument('--input_folder', type=str, default="toy_video", help='Path to the input folder containing videos')
     parser.add_argument('--output_folder', type=str, default="results", help='Path to the output folder')
     parser.add_argument('--video_frames_folder', type=str, default="video_frames_folder_temp", help='Path to the temporary folder for video frames')
-    parser.add_argument('--model_pth_CHScore', type=str, default='/remote-home/13595169576/ysh_test/cache_dir/cotracker2.pth', help='Path to the model checkpoint')
-    parser.add_argument('--model_pth_MTScore', type=str, default='/remote-home/13595169576/ysh_test/cache_dir/InternVideo2-stage2_1b-224p-f4.pt', help='Path to the new model checkpoint')
+    parser.add_argument('--model_pth_CHScore', type=str, default='cotracker2.pth', help='Path to the model checkpoint')
+    parser.add_argument('--model_pth_MTScore', type=str, default='InternVideo2-stage2_1b-224p-f4.pt', help='Path to the new model checkpoint')
     parser.add_argument('--num_workers', type=int, default=8, help='Number of workers to use')
     parser.add_argument('--hf_endpoint', type=str, default='https://hf-mirror.com', help='HF Endpoint')
-    parser.add_argument('--openai_api', type=str, default="sk-UybMNqlL5Vcbf15FDa64D6E335B74a6e89417eF4C66b4344", help='OpenAI API key')
-    parser.add_argument('--api_base_url', type=str, default="https://api.bltcy.ai/v1", help='API base URL')
+    parser.add_argument('--openai_api', type=str, default="sk-UybXXX", help='OpenAI API key')
+    parser.add_argument('--api_base_url', type=str, default=None, help='API base URL')
 
     args = parser.parse_args()
 

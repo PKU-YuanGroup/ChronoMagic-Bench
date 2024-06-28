@@ -1,0 +1,5 @@
+bash step0_get_umtfvd_feature.sh
+bash step1_get_umtfvd.sh
+bash step2_get_umtscope.sh
+python step3_get_merge_umt_scores.py
+python step4_get_merge_umt_fvd.py
