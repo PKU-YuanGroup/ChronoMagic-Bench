@@ -204,6 +204,13 @@ We visualize the evaluation results of various <b>open-source</b> and <b>closed-
 
 See numeric values at our [Leaderboard](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench) :1st_place_medal::2nd_place_medal::3rd_place_medal:
 
+or you can run it locally:
+
+```bash
+cd LeadBoard
+python app.py
+```
+
 ## ⚙️ Requirements and Installation
 
 We recommend the requirements as follows.
