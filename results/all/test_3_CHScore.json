@@ -2,7 +2,7 @@
     "total_average_score": 1.4876359316626049,
     "all_scores": [
         {
-            "test_5": {
+            "animal_04": {
                 "AMPR_score": 0.4920588731765747,
                 "MPVR_score": 0.019023969769477844,
                 "FCR_score": 0.00980392156862745,
@@ -13,7 +13,7 @@
             }
         },
         {
-            "test_6": {
+            "3d_printing_08": {
                 "AMPR_score": 0.3172440230846405,
                 "MPVR_score": 0.01567322388291359,
                 "FCR_score": 0.0,

@@ -11,7 +11,7 @@ def run_command(command):
 
 def main():
     parser = argparse.ArgumentParser(description="Run video processing pipeline.")
-    parser.add_argument('--model_names', nargs='+', default=["test", "abc"], help="Name of the models.")
+    parser.add_argument('--model_names', nargs='+', default=["test"], help="Name of the models.")
     parser.add_argument('--input_folder', type=str, default="toy_video", help='Path to the input folder containing videos')
     parser.add_argument('--output_folder', type=str, default="results", help='Path to the output folder')
     parser.add_argument('--video_frames_folder', type=str, default="video_frames_folder_temp", help='Path to the temporary folder for video frames')
@@ -46,7 +46,7 @@ def main():
     run_command(f"python MTScore/step0-get_MTScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_MTScore}")
 
     # # get uploaded json
-    run_command(f"python get_uploaded_json.py --folder_path {args.output_folder}/all --output_path {args.output_folder}")
+    run_command(f"python get_uploaded_json.py --input_path {args.output_folder}/all --output_path {args.output_folder}")
 
 if __name__ == "__main__":
     main()

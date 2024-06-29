@@ -10,7 +10,7 @@ def parse_args():
     return parser.parse_args()
 
 def extract_score(score_str):
-    match = re.search(r"UMTScore': (\d+\.\d+)", score_str)
+    match = re.search(r"UMTScore': (-?\d+\.\d+)", score_str)
     if match:
         return float(match.group(1))
     return None

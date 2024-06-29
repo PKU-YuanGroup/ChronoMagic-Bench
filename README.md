@@ -18,6 +18,7 @@
 [![Dataset](https://img.shields.io/badge/Dataset-ChronoMagicPro-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro)
 [![Dataset](https://img.shields.io/badge/Dataset-ChronoMagicProH-green)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
 [![Dataset Download](https://img.shields.io/badge/Download-Sampled_Videos-red)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results)
+[![zhihu](https://img.shields.io/badge/-Twitter@Adina%20Yakup%20-black?logo=twitter&logoColor=1D9BF0)](https://twitter.com/AdeenaY8/status/1806409038743171191)
 [![zhihu](https://img.shields.io/badge/-Twitter@Jinfa%20Huang%20-black?logo=twitter&logoColor=1D9BF0)](https://twitter.com/vhjf36495872/status/1806151450441159024?s=61&t=lLg2j2-sZ9igea_Cj3ToLw)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LICENSE) 
 ![GitHub Repo stars](https://img.shields.io/github/stars/PKU-YuanGroup/ChronoMagic-Bench)
@@ -52,7 +53,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 
 * ⏳⏳⏳ Evaluate more Text-to-Video Generation Models via *ChronoMagic-Bench*.
 * ⏳⏳⏳ Release the code of the "Multi-Aspect Data Preprocessing", which is used to process the dataset. The code is being organized. 
-* ⏳⏳⏳ Support evaluating customized videos. The code and instructions are being organized. 
+* `[2024.06.29]`  🔥 Support evaluating customized Text-to-Video models. The code and instructions are available in this repo.
 * `[2024.06.28]`  🔥 We released the **ChronoMagic-Pro** and  **ChronoMagic-ProH** datasets. The datasets include **460K** and **150K** time-lapse video-text pairs respectively and can be downloaded at  [HF-Dataset-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and [HF-Dataset-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH).
 * `[2024.06.27]`  🔥 We release the **arXiv paper** and **Leaderboard** for *ChronoMagic-Bench*, and you can click [here](https://arxiv.org/abs/2406.18522) to read the paper and [here](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench) to see the leaderboard.
 * `[2024.06.26]`  🔥 We release the **testing prompts**, **reference videos** and **generated results** by different models in *ChronoMagic-Bench*, and you can click [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench) to see more details.
@@ -282,7 +283,7 @@ The filenames of all videos to be evaluated should be "<u>videoid</u>.mp4". For 
 
 ### Get MTScore, CHScore and GPT4o-MTScore
 
-We provide output examples in the ['results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/results). You can run the following commands for testing, then modify the relevant parameters (such as *<u>model_names</u>*, <u>*input_folder*</u>, and *openai_api*) to suit the text-to-video (T2V) generation model you want to evaluate.
+We provide output examples in the ['results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/results). You can run the following commands for testing, then modify the relevant parameters (such as *<u>model_names</u>*, <u>*input_folder*</u>, <u>*model_pth*</u> and *<u>openai_api</u>*) to suit the text-to-video (T2V) generation model you want to evaluate.
 
 ```bash
 python evaluate.py \
@@ -337,6 +338,16 @@ We provide *prompt lists* and the *reference videos* of *ChronoMagic-Bench* at [
 [![Dataset Download](https://img.shields.io/badge/Download-Sampled_Videos-red)](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results)
 
 To facilitate future research and to ensure full transparency, we release all the videos we sampled and used for *ChronoMagic-Bench* evaluation. You can download them on [Hugging Face](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results). We also provide detailed explanations of the sampled videos and detailed setting for the models under evaluation [here](https://arxiv.org/abs/2406.18522).
+
+## 🐳 ChronoMagicPro Dataset
+*ChronoMagic-Pro* with **460K** time-lapse videos, each accompanied by a detailed caption. We also released the **150K** subset (*ChronoMagic-ProH*), which is a higher quality subset. All the dataset can be downloaded at [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and  [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH), or you can download it with the following command. Some samples can be found on our [Project Page](https://pku-yuangroup.github.io/MagicTime/).
+
+```bash
+huggingface-cli download --repo-type dataset \
+--resume-download BestWishYsh/ChronoMagic-Pro \  # or BestWishYsh/ChronoMagic-ProH
+--local-dir BestWishYsh/ChronoMagic-Pro \  # or BestWishYsh/ChronoMagic-ProH
+--local-dir-use-symlinks False
+```
 
 ## 👍 Acknowledgement
 

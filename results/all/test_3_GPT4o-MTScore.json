@@ -1,11 +1,11 @@
 {
     "Average Score": 3.0,
     "Formatted Data": {
-        "test_6": {
+        "animal_04": {
             "Brief Reasoning Statement": "The changes in the frames show slight changes in the starfish's position and lighting. The overall movements are subtle, with the time-lapse indicating minor adjustments and relocations of the starfish. Variations are more quantitative, displaying only small, individual motions without significant dynamic activity.",
             "Score": "2"
         },
-        "test_5": {
+        "3d_printing_08": {
             "Brief Reasoning Statement": "The changes in the frames show a significant amount of dynamic movement with the fish swimming around actively. The movement of the fish creates continuous and rapid variation in the scene, giving a vivid visual effect. This variation includes both quantitative changes (positions and swimming patterns of the fish) and qualitative changes (overall scene dynamics).",
             "Score": "4"
         }

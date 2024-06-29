@@ -3,12 +3,12 @@
     "average_metamorphic_score": 0.3029917776584625,
     "video_scores": [
         {
-            "video_name": "test_2.mp4",
+            "video_name": "animal_04.mp4",
             "general_score": 0.6541563868522644,
             "metamorphic_score": 0.3142019957304001
         },
         {
-            "video_name": "test_1.mp4",
+            "video_name": "3d_printing_08.mp4",
             "general_score": 0.6790889203548431,
             "metamorphic_score": 0.29178155958652496
         }
