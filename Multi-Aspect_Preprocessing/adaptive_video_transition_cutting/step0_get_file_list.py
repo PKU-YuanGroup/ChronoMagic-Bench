@@ -6,7 +6,7 @@ def save_file_paths(directory, output_file):
         for root, dirs, files in os.walk(directory):
             for file in files:
                 if file.endswith(".mp4"):
-                    path = os.path.join(root, file)
+                    path = os.path.abspath(os.path.join(root, file))
                     f.write("%s\n" % path)
 
 def main():
@@ -16,7 +16,11 @@ def main():
     
     args = parser.parse_args()
     
-    save_file_paths(args.directory, args.output_file)
+    output_dir = os.path.dirname(args.output_file)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    save_file_paths(args.input_path, args.output_file)
 
 if __name__ == '__main__':
     main()

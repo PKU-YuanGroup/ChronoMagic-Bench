@@ -13,7 +13,6 @@ from configs.utils import retrieve_text, _frame_from_video, setup_internvideo2
 def parse_args():
     parser = argparse.ArgumentParser(description="Video Score Calculation")
     parser.add_argument("--seed", type=int, default=1421538, help="Random seed")
-    parser.add_argument("--model_name", type=str, default="test", help="Model name")
     parser.add_argument("--input_folder", type=str, default="../../toy_video", help="Input folder containing videos")
     parser.add_argument("--output_folder", type=str, default="classify_videos", help="Output folder for saving scores")
     parser.add_argument("--config_path", type=str, default='configs/internvideo2_stage2_config.py', help="Path to config file")
@@ -97,7 +96,7 @@ def main():
     ]
 
     text_to_index = {text: index for index, text in enumerate(text_candidates)}
-    video_folder = os.path.join(args.input_folder, args.model_name)
+    video_folder = args.input_folder
     
     folder_a = os.path.join(args.output_folder, "general_videos")
     folder_b = os.path.join(args.output_folder, "metamorphic_videos")
