@@ -352,7 +352,7 @@ huggingface-cli download --repo-type dataset \
 ## 👍 Acknowledgement
 
 * This project wouldn't be possible without the following open-sourced repositories:
-  [CoTracker](https://github.com/facebookresearch/co-tracker), [InternVideo2](https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo2), [UMT](https://github.com/OpenGVLab/unmasked_teacher), [FETV](https://github.com/llyx97/FETV-EVAL), [VBench](https://github.com/Vchitect/VBench), [ShareGPT4Video](https://sharegpt4video.github.io/) and [LAION Aesthetic Predictor](https://github.com/LAION-AI/aesthetic-predictor).
+  [CoTracker](https://github.com/facebookresearch/co-tracker), [InternVideo2](https://github.com/OpenGVLab/InternVideo/tree/main/InternVideo2), [UMT](https://github.com/OpenGVLab/unmasked_teacher), [FETV](https://github.com/llyx97/FETV-EVAL), [VBench](https://github.com/Vchitect/VBench), [Panda-70M](https://github.com/snap-research/Panda-70M), [ShareGPT4Video](https://sharegpt4video.github.io/) and [LAION Aesthetic Predictor](https://github.com/LAION-AI/aesthetic-predictor).
 
 
 ## 🔒 License
