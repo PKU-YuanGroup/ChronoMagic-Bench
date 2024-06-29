@@ -52,9 +52,9 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 ## 📣 News
 
 * ⏳⏳⏳ Evaluate more Text-to-Video Generation Models via *ChronoMagic-Bench*.
-* ⏳⏳⏳ Release the code of the "Multi-Aspect Data Preprocessing", which is used to process the dataset. The code is being organized. 
+* `[2024.06.30]`  🔥 We release the code of the **"Multi-Aspect Data Preprocessing"**, which is used to process the *ChronoMagic-Pro* dataset. Please click [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/Multi-Aspect_Preprocessing) and [here](https://huggingface.co/papers/2406.18522) to see more details. 
 * `[2024.06.29]`  🔥 Support evaluating customized Text-to-Video models. The code and instructions are available in this repo.
-* `[2024.06.28]`  🔥 We released the **ChronoMagic-Pro** and  **ChronoMagic-ProH** datasets. The datasets include **460K** and **150K** time-lapse video-text pairs respectively and can be downloaded at  [HF-Dataset-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and [HF-Dataset-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH).
+* `[2024.06.28]`  🔥 We release the **ChronoMagic-Pro** and  **ChronoMagic-ProH** datasets. The datasets include **460K** and **150K** time-lapse video-text pairs respectively and can be downloaded at  [HF-Dataset-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and [HF-Dataset-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH).
 * `[2024.06.27]`  🔥 We release the **arXiv paper** and **Leaderboard** for *ChronoMagic-Bench*, and you can click [here](https://arxiv.org/abs/2406.18522) to read the paper and [here](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench) to see the leaderboard.
 * `[2024.06.26]`  🔥 We release the **testing prompts**, **reference videos** and **generated results** by different models in *ChronoMagic-Bench*, and you can click [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench) to see more details.
 * `[2024.06.25]`  🔥 **All codes & datasets** are coming soon! Stay tuned 👀!

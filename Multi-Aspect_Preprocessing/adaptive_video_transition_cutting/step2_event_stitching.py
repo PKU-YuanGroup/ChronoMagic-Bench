@@ -170,6 +170,10 @@ if __name__ == "__main__":
     parser.add_argument("--output-json-file", type=str, default="event_timecode.json")
     args = parser.parse_args()
 
+    input_dir = os.path.dirname(args.video_list)
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+        
     device = "cuda"
     model = imagebind_model.imagebind_huge(pretrained=True)
     model.eval()
@@ -196,7 +200,10 @@ if __name__ == "__main__":
     else:
         video_events = {}
 
-    fail_path = "miss_event_stitching.txt"
+    fail_path = "temp/failed_event_stitching.txt"
+    fail_dir = os.path.dirname(fail_path)
+    if not os.path.exists(fail_dir):
+        os.makedirs(fail_dir)
     if not os.path.exists(fail_path):
         with open(fail_path, 'w') as f:
             f.write('')
@@ -206,9 +213,19 @@ if __name__ == "__main__":
         if video_key in video_events:
             print(f"Skipping already processed video: {video_path}")
             continue
+        try:
+            cap = cv2.VideoCapture(video_path)
+            fps = cap.get(cv2.CAP_PROP_FPS)
+            cutscene = video_cutscenes[video_path.split("/")[-1]]
 
-        print(f"Miss to process video: {video_path}")
-        with file_lock:
-            with open(fail_path, 'a') as f:
-                f.write(f"{video_path}\n")
-            
+            cutscene_raw_feature, cutscene_raw_status = extract_cutscene_feature(video_path, cutscene)
+            cutscenes, cutscene_feature = verify_cutscene(cutscene, cutscene_raw_feature, cutscene_raw_status, transition_threshold=1.)
+            events_raw, event_feature_raw = cutscene_stitching(cutscenes, cutscene_feature, eventcut_threshold=0.6)
+            events, event_feature = verify_event(events_raw, event_feature_raw, fps, min_event_len=2.0, max_event_len=1200, redundant_event_threshold=0.0, trim_begin_last_percent=0.0, still_event_threshold=0.15)
+            video_events[video_path.split("/")[-1]] = transfer_timecode(events, fps)
+            write_json_file(video_events, args.output_json_file)
+        except Exception as e:
+            print(f"Failed to process video: {video_path}, Error: {e}")
+            with file_lock:
+                with open(fail_path, 'a') as f:
+                    f.write(f"{video_path}\n")

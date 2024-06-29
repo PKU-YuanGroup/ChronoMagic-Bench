@@ -45,6 +45,10 @@ if __name__ == "__main__":
     parser.add_argument("--output-json-file", type=str, default="cutscene_frame_idx.json")
     args = parser.parse_args()
 
+    input_dir = os.path.dirname(args.video_list)
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+
     f = open(args.video_list, "r")
     video_paths = f.read().splitlines()
     
@@ -53,7 +57,10 @@ if __name__ == "__main__":
         with open(args.output_json_file, "r") as f:
             video_cutscenes = json.load(f)
             
-    fail_path = "miss_merge_cutscene.txt"
+    fail_path = "temp/failed_cutscene.txt"
+    fail_dir = os.path.dirname(fail_path)
+    if not os.path.exists(fail_dir):
+        os.makedirs(fail_dir)
     if not os.path.exists(fail_path):
         with open(fail_path, 'w') as f:
             f.write('')
@@ -64,7 +71,12 @@ if __name__ == "__main__":
             print(f"Skipping already processed video: {video_name}")
             continue
 
-        print(f"Miss to detect cutscenes in video: {video_path}, Error: {e}")
-        with file_lock:
-            with open(fail_path, 'a') as f:
-                f.write(f"{video_path}\n")
+        try:
+            cutscenes_raw = cutscene_detection(video_path, cutscene_threshold=25, max_cutscene_len=5)
+            video_cutscenes[video_path.split("/")[-1]] = cutscenes_raw
+            write_json_file(video_cutscenes, args.output_json_file)
+        except Exception as e:
+            print(f"Failed to detect cutscenes in video: {video_path}, Error: {e}")
+            with file_lock:
+                with open(fail_path, 'a') as f:
+                    f.write(f"{video_path}\n")

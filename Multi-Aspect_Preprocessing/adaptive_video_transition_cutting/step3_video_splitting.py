@@ -15,6 +15,10 @@ if __name__ == "__main__":
     parser.add_argument("--output-folder", type=str, default="outputs")
     args = parser.parse_args()
 
+    input_dir = os.path.dirname(args.video_list)
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+        
     f = open(args.video_list, "r")
     video_paths = f.read().splitlines()
     f.close()
@@ -25,9 +29,12 @@ if __name__ == "__main__":
 
     os.makedirs(args.output_folder, exist_ok=True)
 
-    miss_path = "miss_splitting.txt"
-    if not os.path.exists(miss_path):
-        with open(miss_path, 'w') as f:
+    fail_path = "temp/failed_splitting.txt"
+    fail_dir = os.path.dirname(fail_path)
+    if not os.path.exists(fail_dir):
+        os.makedirs(fail_dir)
+    if not os.path.exists(fail_path):
+        with open(fail_path, 'w') as f:
             f.write('')
 
     for video_path in tqdm(video_paths):
@@ -39,13 +46,12 @@ if __name__ == "__main__":
                 if os.path.exists(output_file):
                     print(f"{output_file} has been processed, skipping.")
                     continue
-
-                with file_lock:
-                    print(f"FMissing to video_splitting: {video_path}")
-                    with open(miss_path, 'a') as f:
-                        f.write(f"{video_path}\n")
+                start_time = datetime.strptime(timecode[0], '%H:%M:%S.%f')
+                end_time = datetime.strptime(timecode[1], '%H:%M:%S.%f')
+                video_duration = (end_time - start_time).total_seconds()
+                os.system("ffmpeg -hide_banner -loglevel panic -ss %s -t %.3f -i %s %s"%(timecode[0], video_duration, video_path, os.path.join(args.output_folder, video_name+".%i.mp4"%i)))
         else:
             with file_lock:
-                print(f"Missing timecodes for video: {video_path}")
-                with open(miss_path, 'a') as f:
+                print(f"Failed to detect cutscenes in video: {video_path}, Error: {e}")
+                with open(fail_path, 'a') as f:
                     f.write(f"{video_path}\n")
