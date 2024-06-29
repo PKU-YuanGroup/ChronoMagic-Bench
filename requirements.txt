@@ -24,6 +24,7 @@ wandb==0.16.1
 gradio==3.50.2
 gradio-client==0.6.1
 matplotlib==3.9.0
+ffmpeg-python==0.2.0
 imageio[ffmpeg]
 openai
 tenacity
