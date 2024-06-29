@@ -30,3 +30,4 @@ tenacity
 packaging
 ninja
 peft
+omegaconf

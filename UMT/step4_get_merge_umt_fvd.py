@@ -74,6 +74,16 @@ def main():
                     all_averages[model].append(avg_fvd)
 
         merged_averages = {model: sum(values) / len(values) for model, values in all_averages.items() if values}
+        
+        if type == "1649":
+            prefix_scores = {}
+            for key, value in merged_averages.items(): 
+                prefix = "_".join(key.split("_")[:-1])
+                if prefix not in prefix_scores:
+                    prefix_scores[prefix] = []
+                prefix_scores[prefix].append(value)
+            all_averages = prefix_scores
+            merged_averages = {model: sum(values) / len(values) for model, values in all_averages.items() if values}
 
         merge_output_file = os.path.join(args.input_path, f'merge_umtfvd_{type}.json')
         save_results_to_json(merged_averages, merge_output_file)

@@ -1,7 +1,7 @@
 models=(
-    test
+    $MODEL_NAME
 )
-type=150  # 150 or 1649
+type=$TYPE  # 150 or 1649
 seeds=(12 22 32 42)
 current_dir=$(pwd)
 
@@ -10,17 +10,33 @@ run_script() {
     local seed=$2
     echo "Computing FVD for model $model with seed $seed"
     cd main
-    CUDA_VISIBLE_DEVICES=1 python src/scripts/calc_metrics_for_dataset.py \
-        --real_feat_path ${current_dir}/gt_feature/gt${type}_feats.pt \
-        --fake_feat_path ${current_dir}/results/UMTFVD/feature/${type}/${model}/${model}.pt \
-        --save_path ${current_dir}/results/UMTFVD/scores/${type}/${model} \
-        --metrics fvd32_16f,fvd64_16f,fvd128_16f,fvd256_16f,fvd300_16f,fvd512_16f,fvd1024_16f \
-        --mirror 1 \
-        --gpus 1 \
-        --resolution 256 \
-        --verbose 0 \
-        --use_cache 0 \
-        --seed $seed
+    if [[ $type == 150 ]]; then
+        CUDA_VISIBLE_DEVICES=1 python src/scripts/calc_metrics_for_dataset.py \
+            --real_feat_path ${current_dir}/gt_feature/gt${type}_feats.pt \
+            --fake_feat_path ${current_dir}/results/UMTFVD/feature/${type}/${model}/${model}.pt \
+            --save_path ${current_dir}/results/UMTFVD/scores/${type}/${model} \
+            --metrics fvd32_16f,fvd64_16f,fvd128_16f,fvd256_16f,fvd300_16f,fvd512_16f,fvd1024_16f \
+            --mirror 1 \
+            --gpus 1 \
+            --resolution 256 \
+            --verbose 0 \
+            --use_cache 0 \
+            --seed $seed
+    elif [[ $type == 1649 ]]; then
+        for part in {1..3}; do
+            CUDA_VISIBLE_DEVICES=1 python src/scripts/calc_metrics_for_dataset.py \
+                --real_feat_path ${current_dir}/gt_feature/gt${type}_feats.pt \
+                --fake_feat_path ${current_dir}/results/UMTFVD/feature/${type}/${model}_${part}/${model}_${part}.pt \
+                --save_path ${current_dir}/results/UMTFVD/scores/${type}/${model}_${part} \
+                --metrics fvd32_16f,fvd64_16f,fvd128_16f,fvd256_16f,fvd300_16f,fvd512_16f,fvd1024_16f \
+                --mirror 1 \
+                --gpus 1 \
+                --resolution 256 \
+                --verbose 0 \
+                --use_cache 0 \
+                --seed $seed
+        done
+    fi
 }
 
 export type
