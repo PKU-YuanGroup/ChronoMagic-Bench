@@ -72,4 +72,4 @@ bash step2_get_umtscope.sh
 python step3_get_merge_umt_scores.py --input_path $input_path_step3 --output_path $output_path_step3
 ```
 
-and then you will get the results —— *merge_umtfvd_150.json*, *merge_umtfvd_1649.json*, *merge_umtscore_1649.json* and *merge_umtscore_150.json*.
+and then you will get the results —— [*merge_umtfvd_150.json*](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/UMT/results/UMTFVD/scores/merge_umtfvd_150.json), [*merge_umtfvd_1649.json*](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/UMT/results/UMTFVD/scores/merge_umtfvd_1649.json) and [*merge_umtscore_150.json*](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/UMT/results/UMTScore/150/merge_umtscore_150.json)
