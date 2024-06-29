@@ -14,7 +14,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Video Score Calculation")
     parser.add_argument("--seed", type=int, default=1421538, help="Random seed")
     parser.add_argument("--model_name", type=str, default="test", help="Model name")
-    parser.add_argument("--input_folder", type=str, default="../toy_video", help="Input folder containing videos")
+    parser.add_argument("--input_folder", type=str, default="../../toy_video", help="Input folder containing videos")
     parser.add_argument("--output_folder", type=str, default="classify_videos", help="Output folder for saving scores")
     parser.add_argument("--config_path", type=str, default='configs/internvideo2_stage2_config.py', help="Path to config file")
     parser.add_argument("--model_pth", type=str, default='InternVideo2-stage2_1b-224p-f4.pt', help="Path to model checkpoint")
