@@ -340,7 +340,7 @@ We provide *prompt lists* and the *reference videos* of *ChronoMagic-Bench* at [
 To facilitate future research and to ensure full transparency, we release all the videos we sampled and used for *ChronoMagic-Bench* evaluation. You can download them on [Hugging Face](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results). We also provide detailed explanations of the sampled videos and detailed setting for the models under evaluation [here](https://arxiv.org/abs/2406.18522).
 
 ## 🐳 ChronoMagicPro Dataset
-*ChronoMagic-Pro* with **460K** time-lapse videos, each accompanied by a detailed caption. We also released the **150K** subset (*ChronoMagic-ProH*), which is a higher quality subset. All the dataset can be downloaded at [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and  [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH), or you can download it with the following command. Some samples can be found on our [Project Page](https://pku-yuangroup.github.io/MagicTime/).
+*ChronoMagic-Pro* with **460K** time-lapse videos, each accompanied by a detailed caption. We also released the **150K** subset (*ChronoMagic-ProH*), which is a higher quality subset. All the dataset can be downloaded at [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) and  [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH), or you can download it with the following command. Some samples can be found on our [Project Page](https://pku-yuangroup.github.io/ChronoMagic-Bench/).
 
 ```bash
 huggingface-cli download --repo-type dataset \
@@ -348,6 +348,8 @@ huggingface-cli download --repo-type dataset \
 --local-dir BestWishYsh/ChronoMagic-Pro \  # or BestWishYsh/ChronoMagic-ProH
 --local-dir-use-symlinks False
 ```
+
+Please refer to the folder [Multi-Aspect_Preprocessing](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/Multi-Aspect_Preprocessing) for how ChronoMagic-Pro to process this data.
 
 ## 👍 Acknowledgement
 
