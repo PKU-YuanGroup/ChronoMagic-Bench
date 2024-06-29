@@ -365,14 +365,11 @@ huggingface-cli download --repo-type dataset \
 If you find our paper and code useful in your research, please consider giving a star :star: and citation :pencil:.
 
 ```BibTeX
-@misc{yuan2024chronomagicbenchbenchmarkmetamorphicevaluation,
-      title={ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation}, 
-      author={Shenghai Yuan and Jinfa Huang and Yongqi Xu and Yaoyang Liu and Shaofeng Zhang and Yujun Shi and Ruijie Zhu and Xinhua Cheng and Jiebo Luo and Li Yuan},
-      year={2024},
-      eprint={2406.18522},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2406.18522}, 
+@article{yuan2024chronomagic,
+  title={ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation},
+  author={Yuan, Shenghai and Huang, Jinfa and Xu, Yongqi and Liu, Yaoyang and Zhang, Shaofeng and Shi, Yujun and Zhu, Ruijie and Cheng, Xinhua and Luo, Jiebo and Yuan, Li},
+  journal={arXiv preprint arXiv:2406.18522},
+  year={2024}
 }
 ```
 
