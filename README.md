@@ -356,7 +356,7 @@ huggingface-cli download --repo-type dataset \
 --local-dir-use-symlinks False
 ```
 
-Please refer to the folder [Multi-Aspect_Preprocessing](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/Multi-Aspect_Preprocessing) for how ChronoMagic-Pro to process this data.
+Please refer to the folder [Multi-Aspect_Preprocessing](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/Multi-Aspect_Preprocessing) for how *ChronoMagic-Pro* to process this data.
 
 ## 👍 Acknowledgement
 
