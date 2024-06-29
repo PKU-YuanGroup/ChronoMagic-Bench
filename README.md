@@ -211,7 +211,7 @@ We recommend the requirements as follows.
 ### Environment
 
 ```bash
-git clone https://github.com/PKU-YuanGroup/ChronoMagic-Bench.git
+git clone --depth=1 https://github.com/PKU-YuanGroup/ChronoMagic-Bench.git
 cd ChronoMagic-Bench
 conda create -n chronomagic python=3.10
 conda activate chronomagic
