@@ -32,3 +32,4 @@ packaging
 ninja
 peft
 omegaconf
+flash_attn==2.0.8
