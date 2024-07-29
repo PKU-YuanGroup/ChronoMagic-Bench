@@ -38,15 +38,15 @@ def main():
     run_command(f"python CHScore/step0-get_CHScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_CHScore}")
 
     # Calculate GPT4o-MTScore
-    os.chdir('MTScore')
     run_command(f"python GPT4o_MTScore/step0-extract_video_frames.py --input_dir {args.input_folder} --output_dir {args.output_folder}/GPT4o-MTScores_temp/{args.video_frames_folder} --model_names {' '.join(args.model_names)}")
     run_command(f"python GPT4o_MTScore/step1-get_temp_results.py --num_workers {args.num_workers} --openai_api {args.openai_api} --base_url {args.api_base_url} --input_dir {args.output_folder}/GPT4o-MTScores_temp/{args.video_frames_folder} --output_dir {args.output_folder}/GPT4o-MTScores_temp/scores_temp --model_names {' '.join(args.model_names)}")
     run_command(f"python GPT4o_MTScore/step2-get_GPT4o-MTScore.py --input_dir {args.output_folder}/GPT4o-MTScores_temp/scores_temp --output_dir {args.output_folder}/all --model_names {' '.join(args.model_names)}")
-    os.chdir(current_path)
     
     # Calculate MTScore
+    os.chdir('MTScore')
     run_command(f"python MTScore/step0-get_MTScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_MTScore}")
-
+    os.chdir(current_path)
+    
     # # get uploaded json
     run_command(f"python get_uploaded_json.py --input_path {args.output_folder}/all --output_path {args.output_folder}")
 
