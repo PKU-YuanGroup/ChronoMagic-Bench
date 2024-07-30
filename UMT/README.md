@@ -42,6 +42,12 @@ The generated videos should be named corresponding to the prompt ID in ChronoMag
 
 The filenames of all videos to be evaluated should be "<u>videoid</u>.mp4". For example, if the <u>videoid</u> is 3d_printing_08, the video filename should be "3d_printing_08.mp4". If this naming convention is not followed, the text relevance cannot be evaluated.
 
+## Installation
+Run the following command based on _chronomagic_ env
+```bash
+apt-get install parallel
+```
+
 ## Usage
 We provide output examples in the ['UMT/results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/UMT/results). You can run the following commands for testing, then modify the parameters in *<u>'xxx.sh'</u>* as needed to suit the text-to-video (T2V) generation model you want to evaluate (normally, you only need to modify *<u>MODEL_NAME</u>*, <u>*VIDEO_FOLDER*</u>, *<u>TYPE</u>* and *<u>PRETRAINED</u>*).
 
