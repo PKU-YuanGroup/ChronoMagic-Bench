@@ -248,7 +248,7 @@ Use *ChronoMagic-Bench* to evaluate videos, and video generative models.
 
 ### Prepare Videos for Evaluation
 
-The generated videos should be named corresponding to the prompt ID in ChronoMagic-Bench and placed in the evaluation folder, which is structured as follows. We also provide input examples in the ['toy_video'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/toy_video) . ()
+The generated videos should be named corresponding to the prompt ID in ChronoMagic-Bench and placed in the evaluation folder, which is structured as follows. We also provide input examples in the ['toy_video'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/toy_video) . 
 
 ```
 # for ChronoMagic-Bench

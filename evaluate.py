@@ -11,7 +11,8 @@ def run_command(command):
 
 def main():
     parser = argparse.ArgumentParser(description="Run video processing pipeline.")
-    parser.add_argument('--model_names', nargs='+', default=["test"], help="Name of the models.")
+    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=1649)
+    parser.add_argument('--model_names', nargs='+', default=["test_1649"], help="Name of the models.")
     parser.add_argument('--input_folder', type=str, default="toy_video", help='Path to the input folder containing videos')
     parser.add_argument('--output_folder', type=str, default="results", help='Path to the output folder')
     parser.add_argument('--video_frames_folder', type=str, default="video_frames_folder_temp", help='Path to the temporary folder for video frames')
@@ -20,7 +21,7 @@ def main():
     parser.add_argument('--num_workers', type=int, default=8, help='Number of workers to use')
     parser.add_argument('--hf_endpoint', type=str, default='https://hf-mirror.com', help='HF Endpoint')
     parser.add_argument('--openai_api', type=str, default="sk-UybXXX", help='OpenAI API key')
-    parser.add_argument('--api_base_url', type=str, default=None, help='API base URL')  # "https://XXX"
+    parser.add_argument('--api_base_url', type=str, default=None, help='API base URL')  # "https://xxx"
 
     args = parser.parse_args()
 
@@ -35,16 +36,16 @@ def main():
     args.output_folder = os.path.join(current_path, args.output_folder)
 
     # Calculate CHScore
-    run_command(f"python CHScore/step0-get_CHScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_CHScore}")
+    run_command(f"python CHScore/step0-get_CHScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_CHScore} --eval_type {args.eval_type}")
 
     # Calculate GPT4o-MTScore
-    run_command(f"python GPT4o_MTScore/step0-extract_video_frames.py --input_dir {args.input_folder} --output_dir {args.output_folder}/GPT4o-MTScores_temp/{args.video_frames_folder} --model_names {' '.join(args.model_names)}")
-    run_command(f"python GPT4o_MTScore/step1-get_temp_results.py --num_workers {args.num_workers} --openai_api {args.openai_api} --base_url {args.api_base_url} --input_dir {args.output_folder}/GPT4o-MTScores_temp/{args.video_frames_folder} --output_dir {args.output_folder}/GPT4o-MTScores_temp/scores_temp --model_names {' '.join(args.model_names)}")
-    run_command(f"python GPT4o_MTScore/step2-get_GPT4o-MTScore.py --input_dir {args.output_folder}/GPT4o-MTScores_temp/scores_temp --output_dir {args.output_folder}/all --model_names {' '.join(args.model_names)}")
+    run_command(f"python GPT4o_MTScore/step0-extract_video_frames.py --input_dir {args.input_folder} --output_dir {args.output_folder}/GPT4o-MTScores_temp/{args.video_frames_folder} --model_names {' '.join(args.model_names)} --eval_type {args.eval_type}")
+    run_command(f"python GPT4o_MTScore/step1-get_temp_results.py --num_workers {args.num_workers} --openai_api {args.openai_api} --base_url {args.api_base_url} --input_dir {args.output_folder}/GPT4o-MTScores_temp/{args.video_frames_folder} --output_dir {args.output_folder}/GPT4o-MTScores_temp/scores_temp --model_names {' '.join(args.model_names)} --eval_type {args.eval_type}")
+    run_command(f"python GPT4o_MTScore/step2-get_GPT4o-MTScore.py --input_dir {args.output_folder}/GPT4o-MTScores_temp/scores_temp --output_dir {args.output_folder}/all --model_names {' '.join(args.model_names)} --eval_type {args.eval_type}")
     
     # Calculate MTScore
     os.chdir('MTScore')
-    run_command(f"python MTScore/step0-get_MTScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_MTScore}")
+    run_command(f"python step0-get_MTScore.py --model_names {' '.join(args.model_names)} --input_folder {args.input_folder} --output_folder {args.output_folder}/all --model_pth {args.model_pth_MTScore} --eval_type {args.eval_type}")
     os.chdir(current_path)
     
     # # get uploaded json
