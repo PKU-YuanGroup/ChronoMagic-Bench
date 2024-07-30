@@ -18,6 +18,7 @@ def parse_args():
     parser.add_argument('--grid_size', type=int, default=30, help="Grid size for the model.")
     parser.add_argument('--threshold', type=float, default=0.1, help="Threshold for determining frame cuts.")
     parser.add_argument('--size', type=int, default=None, help="Resize the shortest edge of the frame to this size.")
+    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
     return parser.parse_args()
 
 def read_video_from_path(path, size=None):
@@ -72,19 +73,63 @@ def main(args):
         model = model.cuda()
 
     for model_name in tqdm(args.model_names, desc="Processing models"):
-        for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
-            input_dir = os.path.join(args.input_folder, model_name, part)
-            output_file_path = os.path.join(args.output_folder, f"{model_name}_{part}_CHScore.json")
+        if args.eval_type == 1649:
+            for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
+                input_dir = os.path.join(args.input_folder, model_name, part)
+                output_file_path = os.path.join(args.output_folder, f"{model_name}_{part}_CHScore.json")
+
+                if not os.path.exists(args.output_folder):
+                    os.makedirs(args.output_folder)
+                
+                if os.path.exists(output_file_path):
+                    with open(output_file_path, 'r') as existing_file:
+                        all_scores_data = json.load(existing_file).get("all_scores", [])
+                else:
+                    all_scores_data = []
+                
+                processed_video_names = {list(video_scores.keys())[0] for video_scores in all_scores_data}
+
+                for video_file in tqdm(os.listdir(input_dir), unit='video', leave=False):
+                    if video_file.endswith('.mp4'):
+                        video_path = os.path.join(input_dir, video_file)
+                        video_name = video_file.split('.mp4')[0]
+
+                        if video_name in processed_video_names:
+                            print(f"Skipping {video_name} as it already exists.")
+                            continue
+
+                        _, video = process_video(video_path, args.size)
+
+                        if torch.cuda.is_available():
+                            video = video.cuda()
+
+                        scores = get_score(model, video, args.grid_size, args.threshold)
+                        all_scores_data.append({video_name: scores})
+
+                total_average_score = sum([list(video_scores.values())[0]['TSI_score'] for video_scores in all_scores_data]) / len(all_scores_data) if all_scores_data else 0
+
+                merged_data = {
+                    "total_average_score": total_average_score,
+                    "all_scores": all_scores_data
+                }
+
+                with open(output_file_path, 'w') as merged_file:
+                    json.dump(merged_data, merged_file, indent=4)
+
+                print(f"CHScore has been saved to {output_file_path}")
+        elif args.eval_type == 150:
+            input_dir = os.path.join(args.input_folder, model_name)
+            output_file_path = os.path.join(args.output_folder, f"{model_name}_CHScore.json")
 
             if not os.path.exists(args.output_folder):
                 os.makedirs(args.output_folder)
-            
+                
             if os.path.exists(output_file_path):
                 with open(output_file_path, 'r') as existing_file:
                     all_scores_data = json.load(existing_file).get("all_scores", [])
             else:
                 all_scores_data = []
-            
+                
             processed_video_names = {list(video_scores.keys())[0] for video_scores in all_scores_data}
 
             for video_file in tqdm(os.listdir(input_dir), unit='video', leave=False):
@@ -113,8 +158,6 @@ def main(args):
 
             with open(output_file_path, 'w') as merged_file:
                 json.dump(merged_data, merged_file, indent=4)
-
-            print(f"CHScore has been saved to {output_file_path}")
 
 if __name__ == "__main__":
     args = parse_args()

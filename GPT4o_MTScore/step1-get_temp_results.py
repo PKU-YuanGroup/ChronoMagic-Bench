@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument('--input_dir', type=str, default='video_frames_folder', help='Directory for input video frames')
     parser.add_argument('--output_dir', type=str, default='results/temp', help='Directory for output results')
     parser.add_argument('--model_names', nargs='+', default=["test"], help="Name of the models.")
+    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
     return parser.parse_args()
 
 txt_prompt = '''
@@ -177,10 +178,33 @@ if __name__ == "__main__":
         os.makedirs(output_dir)
 
     for model_name in tqdm(args.model_names, desc="Processing models"):
-        for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
-            directory = os.path.join(input_dir, model_name, part)
-            output_file = os.path.join(output_dir, f'{model_name}_{part}_metamorphic.json')
-            group_frames_file = os.path.join(output_dir, f'{model_name}_{part}_temp_group_frames.json')
+        if args.eval_type == 1649:
+            for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
+                directory = os.path.join(input_dir, model_name, part)
+                output_file = os.path.join(output_dir, f'{model_name}_{part}_metamorphic.json')
+                group_frames_file = os.path.join(output_dir, f'{model_name}_{part}_temp_group_frames.json')
+
+                all_prompts = {}
+                all_grouped_images = {}
+
+                filenames = get_image_filenames(directory)
+                grouped_images = group_images_by_video_id(filenames)
+
+                for video_id in grouped_images:
+                    grouped_images[video_id].sort(key=extract_frame_number)
+                    
+                all_grouped_images.update(grouped_images)
+                prompts = create_prompts(grouped_images, directory, txt_prompt)
+                all_prompts.update(prompts)
+                    
+                with open(group_frames_file, 'w', encoding='utf-8') as file:
+                    json.dump(all_grouped_images, file)
+                    
+                main(num_workers, all_prompts, output_file)
+        elif args.eval_type == 150:
+            directory = os.path.join(input_dir, model_name)
+            output_file = os.path.join(output_dir, f'{model_name}_metamorphic.json')
+            group_frames_file = os.path.join(output_dir, f'{model_name}_temp_group_frames.json')
 
             all_prompts = {}
             all_grouped_images = {}
@@ -190,12 +214,12 @@ if __name__ == "__main__":
 
             for video_id in grouped_images:
                 grouped_images[video_id].sort(key=extract_frame_number)
-                
+                    
             all_grouped_images.update(grouped_images)
             prompts = create_prompts(grouped_images, directory, txt_prompt)
             all_prompts.update(prompts)
-                
+                    
             with open(group_frames_file, 'w', encoding='utf-8') as file:
                 json.dump(all_grouped_images, file)
-                
+                    
             main(num_workers, all_prompts, output_file)

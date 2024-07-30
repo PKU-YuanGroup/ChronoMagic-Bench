@@ -160,7 +160,7 @@
   "test_file": {
     "test": [
       "data/chronomagic_fvd_1649.json",
-      "/remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/toy_video/model_1649/1",
+      "/remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/toy_video/test_1649/1",
       "video"
     ]
   },

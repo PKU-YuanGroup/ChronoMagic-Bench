@@ -9,7 +9,7 @@ def parse_args():
     parser.add_argument('--input_dir', required=True, help='Input directory containing videos.')
     parser.add_argument('--output_dir', required=True, help='Output directory for extracted frames.')
     parser.add_argument('--model_names', nargs='+', default=["test"], help="Name of the models.")
-
+    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
     return parser.parse_args()
 
 def resize_frame(frame, short_edge=256):
@@ -87,9 +87,14 @@ def main():
     args = parse_args()
 
     for model_name in tqdm(args.model_names, desc="Processing models"):
-        for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
-            input_folder = os.path.join(args.input_dir, model_name, part)
-            output_folder = os.path.join(args.output_dir, model_name, part)
+        if args.eval_type == 1649:
+            for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
+                input_folder = os.path.join(args.input_dir, model_name, part)
+                output_folder = os.path.join(args.output_dir, model_name, part)
+                process_all_videos(input_folder, output_folder)
+        elif args.eval_type == 150:
+            input_folder = os.path.join(args.input_dir, model_name)
+            output_folder = os.path.join(args.output_dir, model_name)
             process_all_videos(input_folder, output_folder)
 
 if __name__ == "__main__":

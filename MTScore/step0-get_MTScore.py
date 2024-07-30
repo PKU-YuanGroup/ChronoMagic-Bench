@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument("--output_folder", type=str, default="results/all", help="Output folder for saving scores")
     parser.add_argument("--config_path", type=str, default='configs/internvideo2_stage2_config.py', help="Path to config file")
     parser.add_argument("--model_pth", type=str, default='InternVideo2-stage2_1b-224p-f4.pt', help="Path to model checkpoint")
+    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
     return parser.parse_args()
 
 def retry_setup(config, max_attempts=3, delay=2):
@@ -100,10 +101,53 @@ def main():
     text_to_index = {text: index for index, text in enumerate(text_candidates)}
     
     for model_name in tqdm(args.model_names, desc="Processing models"):
-        for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
-            scores_json_path = os.path.join(args.output_folder, f'{model_name}_{part}_MTScore.json')
-            video_folder = os.path.join(args.input_folder, model_name, part)
-            
+        if args.eval_type == 1649:
+            for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
+                scores_json_path = os.path.join(args.output_folder, f'{model_name}_{part}_MTScore.json')
+                video_folder = os.path.join(args.input_folder, model_name, part)
+                
+                if os.path.exists(scores_json_path):
+                    existing_scores = load_existing_scores(scores_json_path)
+                    video_scores = existing_scores['video_scores']
+                    processed_videos = {score['video_name'] for score in video_scores}
+                else:
+                    processed_videos = {}
+                    video_scores = []
+
+                video_files = [file for file in os.listdir(video_folder) if file.endswith('.mp4')]
+                
+                for video_file in tqdm(video_files, desc=f'Processing {model_name}', unit='video', leave=False):
+                    if video_file in processed_videos:
+                        print(f"Skipping {video_file} as it already exists.")
+                        continue
+
+                    video_path = os.path.join(video_folder, video_file)
+                    general_score, metamorphic_score = calculate_video_score(video_path, text_to_index, text_candidates, intern_model, config)
+                    video_score = {
+                        'video_name': video_file,
+                        'general_score': general_score,
+                        'metamorphic_score': metamorphic_score,
+                    }
+                    video_scores.append(video_score)
+
+                if video_scores:
+                    average_general_score, average_metamorphic_score = calculate_average_score([(score['general_score'], score['metamorphic_score']) for score in video_scores])
+
+                    scores_data = {
+                        'average_general_score': average_general_score,
+                        'average_metamorphic_score': average_metamorphic_score,
+                        'video_scores': video_scores
+                    }
+                    with open(scores_json_path, 'w') as f:
+                        json.dump(scores_data, f, indent=4)
+
+                    print(f"MTScore has been saved to {scores_json_path}")
+                else:
+                    print(f"No video scores found for {model_name}")
+        elif args.eval_type == 150:
+            scores_json_path = os.path.join(args.output_folder, f'{model_name}_MTScore.json')
+            video_folder = os.path.join(args.input_folder, model_name)
+                
             if os.path.exists(scores_json_path):
                 existing_scores = load_existing_scores(scores_json_path)
                 video_scores = existing_scores['video_scores']
@@ -113,7 +157,7 @@ def main():
                 video_scores = []
 
             video_files = [file for file in os.listdir(video_folder) if file.endswith('.mp4')]
-            
+                
             for video_file in tqdm(video_files, desc=f'Processing {model_name}', unit='video', leave=False):
                 if video_file in processed_videos:
                     print(f"Skipping {video_file} as it already exists.")
