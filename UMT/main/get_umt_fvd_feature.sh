@@ -25,7 +25,7 @@ for MODEL_NAME in "${MODEL_NAMES[@]}"; do
             --nproc_per_node=${NUM_GPUS} \
             --rdzv_backend=c10d \
             --rdzv_endpoint=localhost:12345 \
-            tasks/t2v_eval.py \
+            tasks/video_feature_extract.py \
             --config_file configs/chronomagic_umtscore_config.py \
             pretrained_path ${PRETRAINED} \
             output_dir ${TEMP_OUTPUT_DIR} \
@@ -48,7 +48,7 @@ for MODEL_NAME in "${MODEL_NAMES[@]}"; do
                 --nproc_per_node=${NUM_GPUS} \
                 --rdzv_backend=c10d \
                 --rdzv_endpoint=localhost:12345 \
-                tasks/t2v_eval.py \
+                tasks/video_feature_extract.py \
                 --config_file configs/chronomagic_umtscore_config.py \
                 pretrained_path ${PRETRAINED} \
                 output_dir ${TEMP_OUTPUT_DIR} \
