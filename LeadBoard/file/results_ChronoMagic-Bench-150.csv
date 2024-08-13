@@ -17,3 +17,4 @@ Model,Backbone,UMT-FVD↓,UMTScore↑,MTScore↑,CHScore↑,GPT4o-MTScore↑
 [OpenSoraPlan v1.1](https://github.com/PKU-YuanGroup/Open-Sora-Plan),DiT,228.7,2.459,0.331,10.32,2.21
 [OpenSoraPlan v1.x](https://github.com/PKU-YuanGroup/Open-Sora-Plan),DiT,216.9,0.972,0.324,1.78,1.08
 [EasyAnimate-V3](https://github.com/aigc-apps/EasyAnimate),DiT,202.03,2.733,0.352,4.34,2.16
+[CogVideoX](https://github.com/THUDM/CogVideo),DiT,195.52,3.24,0.372,-,-
