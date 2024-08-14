@@ -367,7 +367,7 @@ Please refer to the folder [Multi-Aspect_Preprocessing](https://github.com/PKU-Y
 ## 🔒 License
 
 * The majority of this project is released under the Apache 2.0 license as found in the [LICENSE](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LICENSE) file.
-* The service is a research preview. Please contact us if you find any potential violations.
+* The service is a research preview. Please contact us if you find any potential violations. (shyuan-cs@hotmail.com)
 
 ## ✏️ Citation
 
