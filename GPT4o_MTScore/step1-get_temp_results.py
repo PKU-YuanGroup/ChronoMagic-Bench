@@ -53,8 +53,8 @@ def parse_video_id(filename):
     return match.group(1) if match else None
 
 def image_b64(image_path):
-    with open(image_path, "rb") as f:
-        return base64.b64encode(f.read()).decode()
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode('utf-8')
 
 def group_images_by_video_id(filenames):
     images_by_video = {}
@@ -77,7 +77,7 @@ def create_prompts(grouped_images, image_directory, txt_prompt):
             image_path = os.path.join(image_directory, image_name.strip())
             b64_image = image_b64(image_path)
             prompt.append({"type": "text", "text": image_name.strip()})
-            prompt.append({"type": "image_url", "image_url": f"data:image/png;base64,{b64_image}"})
+            prompt.append({"type": "image_url", "image_url":{"url": f"data:image/png;base64,{b64_image}"}})
         
         prompts[video_id] = prompt
     return prompts
