@@ -54,15 +54,47 @@ def get_score(model, video, grid_size=30, threshold=0.1):
     frames_to_be_cut = (miss_points_ap > threshold).nonzero(as_tuple=True)[0] + 1
     frames_to_be_cut = frames_to_be_cut.cpu().tolist()
 
-    scores = {
+    global_stats = {
+        "AMPR_score": {"max": 0.9368749856948853, "min": 0.0},
+        "MPVR_score": {"max": 0.8997353911399841, "min": 0.0},
+        "FCR_score": {"max": 0.625, "min": 0.0},
+        "CMPV_score": {"max": 20, "min": 0},
+        "MCMPV_score": {"max": 1.0, "min": 0.0},
+    }
+
+    weights = {
+        "CMPV_score": 0.15,
+        "FCR_score": 0.15,
+        "AMPR_score": 0.35,
+        "MPVR_score": 0.25,
+        "MCMPV_score": 0.10,
+    }
+
+    # Calculate raw scores
+    raw_scores = {
         'AMPR_score': miss_points.mean().item(),
         'MPVR_score': miss_points_ap.std().item(),
         'FCR_score': len(frames_to_be_cut) / frames,
         'CMPV_score': (miss_points_ap > threshold).sum().item(),
         'MCMPV_score': miss_points_ap.max().item(),
-        'TSI_sum': miss_points.mean().item() + miss_points_ap.std().item() + len(frames_to_be_cut) / frames + (miss_points_ap > threshold).sum().item() + miss_points_ap.max().item()
     }
-    scores['TSI_score'] = 1 / scores['TSI_sum'] if scores['TSI_sum'] != 0 else 0
+
+    # Normalize scores
+    normalized_scores = {}
+    for key, value in raw_scores.items():
+        min_val = global_stats[key]['min']
+        max_val = global_stats[key]['max']
+        normalized_scores[key] = (value - min_val) / (max_val - min_val) if max_val != min_val else 0
+
+    # Calculate TSI_sum
+    TSI_sum = sum(normalized_scores[key] * weights[key] for key in normalized_scores)
+
+    # Add normalized values to the scores dictionary
+    scores = {key: normalized_scores[key] for key in normalized_scores}
+    scores['TSI_sum'] = TSI_sum
+
+    # Calculate TSI_score
+    scores['TSI_score'] = 1 / TSI_sum if TSI_sum != 0 else 0
 
     return scores
 
