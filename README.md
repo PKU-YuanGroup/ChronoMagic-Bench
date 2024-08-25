@@ -243,6 +243,10 @@ huggingface-cli download --repo-type model \
 --local-dir-use-symlinks False
 ```
 
+##  :bookmark_tabs: Benchmark Prompts 
+
+We provide *prompt lists* and the *reference videos* of *ChronoMagic-Bench* at [Hugging Face](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Captions). You can use this to sample videos for evaluation of your model.
+
 ## :hammer: Usage
 
 Use *ChronoMagic-Bench* to evaluate videos, and video generative models.
@@ -336,10 +340,6 @@ python get_uploaded_json.py \
 ```
 
 After completing the above steps, you will obtain [ChronoMagic-Bench-Input.json](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json), and then you need to manually fill the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) with UMT-FVD and UMTScore (as we calculate them separately). Finally, you can submit the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) to [HuggingFace](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench).
-
-##  :bookmark_tabs: Benchmark Prompts 
-
-We provide *prompt lists* and the *reference videos* of *ChronoMagic-Bench* at [Hugging Face](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Captions). You can use this to sample videos for evaluation of your model.
 
 ## :surfer: Sampled Videos
 
