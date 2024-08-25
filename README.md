@@ -245,7 +245,7 @@ huggingface-cli download --repo-type model \
 
 ##  :bookmark_tabs: Benchmark Prompts 
 
-We provide *evaluation prompt lists* of *ChronoMagic-Bench* [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Captions) or [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/prompts). You can use this to sample videos for evaluation of your model. We also provide the *reference videos* for the corresponding evaluation prompts [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main).
+We provide *evaluation prompt lists* of *ChronoMagic-Bench* [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Captions) or [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/prompts). You can use this to sample videos for evaluation of your model. We also provide the *reference videos* for the corresponding evaluation prompts [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main).
 
 ## :hammer: Usage
 
