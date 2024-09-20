@@ -1,0 +1,962 @@
+2024-06-29T02:46:03 | INFO | umt : Logging to: /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/results/UMTScore/open/test_open_3/train.log
+2024-06-29T02:46:03 | INFO | utils.config_utils : config: {
+  data_dir: data
+  data_root: data/videos_images
+  anno_root_pt: data/anno_pretrain
+  anno_root_downstream: data/anno_downstream
+  TextEncoders: {
+      bert: {
+          name: bert_base
+          pretrained: bert-base-uncased
+          config: configs/config_bert.json
+          d_model: 768
+          fusion_layer: 9 }
+      bert_large: {
+          name: bert_large
+          pretrained: bert-large-uncased
+          config: configs/config_bert_large.json
+          d_model: 1024
+          fusion_layer: 19 } }
+  test_types: ['test']
+  num_workers: 6
+  stop_key: test/
+  is_paragraph_retrieval: False
+  num_frames: 12
+  num_frames_test: 12
+  batch_size: 16
+  max_txt_l: 32
+  inputs: {
+      image_res: 224
+      video_input: {
+          num_frames: 12
+          sample_type: rand
+          num_frames_test: 12
+          sample_type_test: middle
+          random_aug: False }
+      max_txt_l: {
+          image: 32
+          video: 32 }
+      batch_size: {
+          image: 16
+          video: 16 }
+      batch_size_test: {
+          image: 16
+          video: 16 } }
+  text_enc: bert_large
+  model: {
+      model_cls: UMT
+      vision_encoder: {
+          name: vit_l14
+          img_size: 224
+          patch_size: 16
+          d_model: 1024
+          encoder_embed_dim: 1024
+          encoder_depth: 24
+          encoder_num_heads: 16
+          drop_path_rate: 0.3
+          num_frames: 12
+          tubelet_size: 1
+          use_checkpoint: True
+          checkpoint_num: 24
+          clip_decoder_embed_dim: 1024
+          clip_output_dim: 768
+          clip_return_layer: 0
+          clip_student_return_interval: 1
+          pretrained: None
+          clip_teacher: none
+          clip_img_size: 196
+          clip_return_interval: 1
+          video_mask_type: attention
+          video_mask_ratio: 0.0
+          video_double_mask_ratio: 0.0
+          image_mask_type: attention
+          image_mask_ratio: 0.0
+          image_double_mask_ratio: 0.0
+          keep_temporal: True }
+      text_encoder: {
+          name: bert_large
+          pretrained: bert-large-uncased
+          config: configs/config_bert_large.json
+          d_model: 1024
+          fusion_layer: 19 }
+      multimodal: {
+          enable: True }
+      embed_dim: 768
+      temp: 0.07 }
+  criterion: {
+      loss_weight: {
+          vtc: 1.0
+          mlm: 0.0
+          vtm: 1.0
+          uta: 0.0 }
+      vtm_hard_neg: True
+      fg_hard_neg: False
+      mlm_masking_prob: 0.5
+      uta_norm_type: l2
+      uta_loss_type: l2 }
+  optimizer: {
+      opt: adamW
+      lr: 2e-05
+      opt_betas: [0.9, 0.999]
+      weight_decay: 0.02
+      max_grad_norm: -1
+      different_lr: {
+          enable: False
+          module_names: []
+          lr: 0.001 } }
+  scheduler: {
+      sched: cosine
+      epochs: 7
+      min_lr_multi: 0.01
+      warmup_epochs: 1 }
+  evaluate: True
+  deep_fusion: False
+  evaluation: {
+      eval_frame_ensemble: concat
+      eval_x_only: False
+      k_test: 128
+      eval_offload: True }
+  fp16: True
+  gradient_checkpointing: True
+  wandb: {
+      enable: False
+      entity: user
+      project: umt }
+  dist_url: env://
+  device: cuda
+  mode: pt
+  output_dir: /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/results/UMTScore/open/test_open_3
+  resume: False
+  debug: False
+  log_freq: 100
+  seed: 42
+  zero_shot: True
+  save_latest: True
+  auto_resume: True
+  pretrained_path: /remote-home/13595169576/ysh_test/cache_dir/chronomagic_ckpt/UMT/UMT-msrvtt-7k.pth
+  test_file: {
+      test: ['data/chronomagic_open.json', '/remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/toy_video/test_open/3', 'video'] }
+  rank: 0
+  world_size: 1
+  gpu: 0
+  distributed: True
+  dist_backend: nccl }
+2024-06-29T02:46:03 | INFO | __main__ : config: 
+{'data_dir': 'data', 'data_root': 'data/videos_images', 'anno_root_pt': 'data/anno_pretrain', 'anno_root_downstream': 'data/anno_downstream', 'TextEncoders': {'bert': {'name': 'bert_base', 'pretrained': 'bert-base-uncased', 'config': 'configs/config_bert.json', 'd_model': 768, 'fusion_layer': 9}, 'bert_large': {'name': 'bert_large', 'pretrained': 'bert-large-uncased', 'config': 'configs/config_bert_large.json', 'd_model': 1024, 'fusion_layer': 19}}, 'test_types': ['test'], 'num_workers': 6, 'stop_key': 'test/', 'is_paragraph_retrieval': False, 'num_frames': 12, 'num_frames_test': 12, 'batch_size': 16, 'max_txt_l': 32, 'inputs': {'image_res': 224, 'video_input': {'num_frames': 12, 'sample_type': 'rand', 'num_frames_test': 12, 'sample_type_test': 'middle', 'random_aug': False}, 'max_txt_l': {'image': 32, 'video': 32}, 'batch_size': {'image': 16, 'video': 16}, 'batch_size_test': {'image': 16, 'video': 16}}, 'text_enc': 'bert_large', 'model': {'model_cls': 'UMT', 'vision_encoder': {'name': 'vit_l14', 'img_size': 224, 'patch_size': 16, 'd_model': 1024, 'encoder_embed_dim': 1024, 'encoder_depth': 24, 'encoder_num_heads': 16, 'drop_path_rate': 0.3, 'num_frames': 12, 'tubelet_size': 1, 'use_checkpoint': True, 'checkpoint_num': 24, 'clip_decoder_embed_dim': 1024, 'clip_output_dim': 768, 'clip_return_layer': 0, 'clip_student_return_interval': 1, 'pretrained': None, 'clip_teacher': 'none', 'clip_img_size': 196, 'clip_return_interval': 1, 'video_mask_type': 'attention', 'video_mask_ratio': 0.0, 'video_double_mask_ratio': 0.0, 'image_mask_type': 'attention', 'image_mask_ratio': 0.0, 'image_double_mask_ratio': 0.0, 'keep_temporal': True}, 'text_encoder': {'name': 'bert_large', 'pretrained': 'bert-large-uncased', 'config': 'configs/config_bert_large.json', 'd_model': 1024, 'fusion_layer': 19}, 'multimodal': {'enable': True}, 'embed_dim': 768, 'temp': 0.07}, 'criterion': {'loss_weight': {'vtc': 1.0, 'mlm': 0.0, 'vtm': 1.0, 'uta': 0.0}, 'vtm_hard_neg': True, 'fg_hard_neg': False, 'mlm_masking_prob': 0.5, 'uta_norm_type': 'l2', 'uta_loss_type': 'l2'}, 'optimizer': {'opt': 'adamW', 'lr': 2e-05, 'opt_betas': [0.9, 0.999], 'weight_decay': 0.02, 'max_grad_norm': -1, 'different_lr': {'enable': False, 'module_names': [], 'lr': 0.001}}, 'scheduler': {'sched': 'cosine', 'epochs': 7, 'min_lr_multi': 0.01, 'warmup_epochs': 1}, 'evaluate': True, 'deep_fusion': False, 'evaluation': {'eval_frame_ensemble': 'concat', 'eval_x_only': False, 'k_test': 128, 'eval_offload': True}, 'fp16': True, 'gradient_checkpointing': True, 'wandb': {'enable': False, 'entity': 'user', 'project': 'umt'}, 'dist_url': 'env://', 'device': 'cuda', 'mode': 'pt', 'output_dir': '/remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/results/UMTScore/open/test_open_3', 'resume': False, 'debug': False, 'log_freq': 100, 'seed': 42, 'zero_shot': True, 'save_latest': True, 'auto_resume': True, 'pretrained_path': '/remote-home/13595169576/ysh_test/cache_dir/chronomagic_ckpt/UMT/UMT-msrvtt-7k.pth', 'test_file': {'test': ['data/chronomagic_open.json', '/remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/toy_video/test_open/3', 'video']}, 'rank': 0, 'world_size': 1, 'gpu': 0, 'distributed': True, 'dist_backend': 'nccl'}
+2024-06-29T02:46:03 | INFO | tasks.shared_utils : Creating model
+2024-06-29T02:46:03 | WARNING | py.warnings : /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/main/utils/distributed.py:18: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  builtin_warn(*args, **kwargs)
+
+2024-06-29T02:46:03 | WARNING | py.warnings : /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/main/utils/distributed.py:18: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  builtin_warn(*args, **kwargs)
+
+2024-06-29T02:46:03 | INFO | models.umt : Build vision_encoder: vit_l14
+2024-06-29T02:46:03 | INFO | models.backbones.vit.vit : Num of patches: 2352
+2024-06-29T02:46:03 | INFO | models.backbones.vit.vit : Use checkpoint: True
+2024-06-29T02:46:03 | INFO | models.backbones.vit.vit : Checkpoint number: 24
+2024-06-29T02:46:03 | INFO | models.backbones.vit.vit : Student return index: []
+2024-06-29T02:46:22 | INFO | models.backbones.vit.vit : No pretrained weights!!!
+2024-06-29T02:46:22 | INFO | models.umt : Build text_encoder bert_large
+2024-06-29T02:46:25 | INFO | models.backbones.bert.xbert : build bert with cross_module: ca
+2024-06-29T02:46:25 | INFO | models.criterions : Norm type: l2
+2024-06-29T02:46:25 | INFO | models.criterions : Loss type: l2
+2024-06-29T02:46:26 | INFO | utils.optimizer : diff_names: [], diff_lr: None
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.temp: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.patch_embed.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.patch_embed.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.0.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.1.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.2.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.3.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.4.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.5.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.6.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.7.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.8.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.9.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.10.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.11.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.12.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.13.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.14.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.15.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.16.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.17.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.18.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.19.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.20.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.21.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.22.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.norm1.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.norm1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.attn.q_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.attn.v_bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.attn.qkv.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.attn.proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.attn.proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.norm2.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.norm2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.mlp.fc1.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.mlp.fc1.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.mlp.fc2.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.blocks.23.mlp.fc2.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.norm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.encoder.norm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.pool_norm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_encoder.pool_norm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.embeddings.word_embeddings.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.embeddings.position_embeddings.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.embeddings.token_type_embeddings.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.embeddings.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.embeddings.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.0.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.1.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.2.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.3.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.4.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.5.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.6.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.7.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.8.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.9.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.10.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.11.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.12.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.13.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.14.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.15.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.16.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.17.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.18.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.crossattention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.19.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.crossattention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.20.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.crossattention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.21.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.crossattention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.22.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.attention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.self.query.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.self.query.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.self.key.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.self.key.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.self.value.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.self.value.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.crossattention.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.intermediate.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.intermediate.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.output.dense.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.output.dense.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.output.LayerNorm.weight: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_encoder.encoder.layer.23.output.LayerNorm.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.vision_proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_proj.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.text_proj.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.itm_head.weight: wd: 0.02, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : param module.itm_head.bias: wd: 0, lr: 2e-05
+2024-06-29T02:46:26 | INFO | utils.optimizer : optimizer -- lr=2e-05 wd=0.02 len(p)=268
+2024-06-29T02:46:26 | INFO | utils.optimizer : optimizer -- lr=2e-05 wd=0 len(p)=496
+2024-06-29T02:46:26 | INFO | tasks.shared_utils : Auto resuming
+2024-06-29T02:46:26 | INFO | tasks.shared_utils : Not found checkpoint in /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/results/UMTScore/open/test_open_3
+2024-06-29T02:46:33 | INFO | tasks.shared_utils : <All keys matched successfully>
+2024-06-29T02:46:33 | INFO | tasks.shared_utils : Loaded checkpoint from /remote-home/13595169576/ysh_test/cache_dir/chronomagic_ckpt/UMT/UMT-msrvtt-7k.pth
+2024-06-29T02:46:33 | INFO | __main__ : Start evaluation
+2024-06-29T02:46:33 | INFO | tasks.t2v_eval_utils : Start evaluation for media_type=video
+2024-06-29T02:46:33 | INFO | tasks.t2v_eval_utils : Computing dual encoder features...
+2024-06-29T02:46:35 | WARNING | py.warnings : /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/main/utils/distributed.py:18: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.4 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  builtin_warn(*args, **kwargs)
+
+2024-06-29T02:46:35 | WARNING | py.warnings : /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/main/utils/distributed.py:18: UserWarning: torch.utils.checkpoint: the use_reentrant parameter should be passed explicitly. In version 2.4 we will raise an exception if use_reentrant is not passed. use_reentrant=False is recommended, but if you need to preserve the current default behavior, you can pass use_reentrant=True. Refer to docs for more details on the differences between the two variants.
+  builtin_warn(*args, **kwargs)
+
+2024-06-29T02:46:35 | WARNING | py.warnings : /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/main/utils/distributed.py:18: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  builtin_warn(*args, **kwargs)
+
+2024-06-29T02:46:35 | WARNING | py.warnings : /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/main/utils/distributed.py:18: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  builtin_warn(*args, **kwargs)
+
+2024-06-29T02:46:35 | INFO | utils.basic_utils : extracting image feats  [0/1]  eta: 0:00:02    time: 2.3589  data: 1.4863  max mem: 7182 res mem: 7466
+2024-06-29T02:46:35 | INFO | utils.basic_utils : extracting image feats Total time: 0:00:02 (2.3606 s / it)
+2024-06-29T02:46:35 | INFO | tasks.t2v_eval_utils : Finished feature extraction
+2024-06-29T02:46:35 | INFO | tasks.t2v_eval_utils : Computing ITC scores [dot-product]
+2024-06-29T02:46:36 | INFO | tasks.t2v_eval_utils : Computing ITC scores [dot-product], done!
+2024-06-29T02:46:36 | INFO | tasks.t2v_eval_utils : Rerank dual-encoder results with cross-encoder...
+2024-06-29T02:46:36 | INFO | tasks.t2v_eval_utils : n_clip_per_video=1, with eval_frame_ensemble=concat
+2024-06-29T02:46:36 | INFO | tasks.t2v_eval_utils : t2i_scores.shape torch.Size([2, 2])
+2024-06-29T02:46:36 | INFO | utils.basic_utils : Evaluation:  [0/2]  eta: 0:00:00    time: 0.0663  data: 0.0001  max mem: 7182 res mem: 7468
+2024-06-29T02:46:36 | INFO | utils.basic_utils : Evaluation:  [1/2]  eta: 0:00:00    time: 0.0364  data: 0.0000  max mem: 7182 res mem: 7468
+2024-06-29T02:46:36 | INFO | utils.basic_utils : Evaluation: Total time: 0:00:00 (0.0371 s / it)
+2024-06-29T02:46:36 | INFO | tasks.t2v_eval_utils : Evaluation time 0:00:02
+2024-06-29T02:46:36 | INFO | __main__ : Evaluation time 0:00:02
+2024-06-29T02:46:36 | INFO | __main__ : Checkpoints and Logs saved at /remote-home/13595169576/ysh_test/upload_github/ChronoMagic-Bench/UMT/results/UMTScore/open/test_open_3

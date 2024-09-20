@@ -238,9 +238,8 @@ rm -r flash-attention
 
 ```bash
 huggingface-cli download --repo-type model \
---resume-download BestWishYsh/ChronoMagic-Bench \
---local-dir BestWishYsh/ChronoMagic-Bench \
---local-dir-use-symlinks False
+BestWishYsh/ChronoMagic-Bench \
+--local-dir BestWishYsh/ChronoMagic-Bench
 ```
 
 ##  :bookmark_tabs: Benchmark Prompts 
@@ -256,7 +255,7 @@ Use *ChronoMagic-Bench* to evaluate videos, and video generative models.
 The generated videos should be named corresponding to the prompt ID in ChronoMagic-Bench and placed in the evaluation folder, which is structured as follows. We also provide input examples in the ['toy_video'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/toy_video) . 
 
 ```
-# for ChronoMagic-Bench
+# for open-source models
 `-- input_video_folder
     `-- model_name_a
         |-- 1
@@ -279,7 +278,7 @@ The generated videos should be named corresponding to the prompt ID in ChronoMag
             |-- 3d_printing_08.mp4
             `-- ...
             
-# for ChronoMagic-Bench-150
+# for close-source models
 -- input_video_folder
     |-- model_name_a
     |   |-- 3d_printing_08.mp4
@@ -299,9 +298,10 @@ We provide output examples in the ['results'](https://github.com/PKU-YuanGroup/C
 
 ```bash
 python evaluate.py \
+  --eval_type "open" \
   --model_names test \
   # or more than one model
-  # --model_names test abc  \
+  # --model_names name1 name2  \
   --input_folder toy_video \
   --output_folder results \
   --video_frames_folder video_frames_folder_temp \

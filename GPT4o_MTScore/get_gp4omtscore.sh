@@ -1,8 +1,8 @@
 openai_api="sk-UybMXXX"
 api_base_url="https://XXX"
 
-type=150  # 150 or 1649
-model_names=("test_150")  #("test_1649" "test_1649")
+type="open"  # open or close
+model_names=("test_open")  # ("name_1" "name_2")
 video_folder="../toy_video"
 video_frames_folder="video_frames_folder_temp"
 output_dir="results"
