@@ -54,6 +54,13 @@ def get_score(model, video, grid_size=30, threshold=0.1):
     frames_to_be_cut = (miss_points_ap > threshold).nonzero(as_tuple=True)[0] + 1
     frames_to_be_cut = frames_to_be_cut.cpu().tolist()
 
+    # AMPR :  Rmissed (average proportion of missed points per frame)
+    # MPVR :  Vmissed (the variation in the number of missed points between consecutive frames)
+    # FCR  :  Rcut    (ratio of frames that need to be cut)
+    # CMPV :  Cmissed (indicate the number of consecutive changes in missed points)
+    # MCMPV:  Mmissed (maximum continuous change in missed points)
+    # TSI_score: CHScore
+    
     global_stats = {
         "AMPR_score": {"max": 0.9368749856948853, "min": 0.0},
         "MPVR_score": {"max": 0.8997353911399841, "min": 0.0},
