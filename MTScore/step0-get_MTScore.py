@@ -17,7 +17,7 @@ def parse_args():
     parser.add_argument("--output_folder", type=str, default="results/all", help="Output folder for saving scores")
     parser.add_argument("--config_path", type=str, default='configs/internvideo2_stage2_config.py', help="Path to config file")
     parser.add_argument("--model_pth", type=str, default='InternVideo2-stage2_1b-224p-f4.pt', help="Path to model checkpoint")
-    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
+    parser.add_argument('--eval_type', type=str, choices=["open", "close"], default="open", help="Specify the evaluation mode: 'open' for open-source models or 'close' for closed-source models.")
     return parser.parse_args()
 
 def retry_setup(config, max_attempts=3, delay=2):
@@ -101,7 +101,7 @@ def main():
     text_to_index = {text: index for index, text in enumerate(text_candidates)}
     
     for model_name in tqdm(args.model_names, desc="Processing models"):
-        if args.eval_type == 1649:
+        if args.eval_type == "open":
             for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
                 scores_json_path = os.path.join(args.output_folder, f'{model_name}_{part}_MTScore.json')
                 video_folder = os.path.join(args.input_folder, model_name, part)
@@ -144,7 +144,7 @@ def main():
                     print(f"MTScore has been saved to {scores_json_path}")
                 else:
                     print(f"No video scores found for {model_name}")
-        elif args.eval_type == 150:
+        elif args.eval_type == "close":
             scores_json_path = os.path.join(args.output_folder, f'{model_name}_MTScore.json')
             video_folder = os.path.join(args.input_folder, model_name)
                 

@@ -1,9 +1,10 @@
 # If you can't connect to huggingface.co, add this line of code (hf-mirror)
 # export HF_ENDPOINT=https://hf-mirror.com
 current_dir=$(pwd)
-export MODELS=("test_150")  # ("test_1649" "test_1649")
+export MODELS=("test_open")  # ("name_1" "name_2")
 export VIDEO_FOLDER="${current_dir}/toy_video"
-export TYPE=150   # 150 or 1649
+export TYPE="open"     # open or close
+export VERSION="1649"  # 150 or 1649
 export PRETRAINED="UMT-msrvtt-7k.pth"
 
 input_path_step3=results/UMTScore/$TYPE/

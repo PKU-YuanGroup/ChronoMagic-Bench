@@ -11,8 +11,8 @@ def run_command(command):
 
 def main():
     parser = argparse.ArgumentParser(description="Run video processing pipeline.")
-    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=1649)
-    parser.add_argument('--model_names', nargs='+', default=["test_1649"], help="Name of the models.")
+    parser.add_argument('--eval_type', type=str, choices=["open", "close"], default="open", help="Specify the evaluation mode: 'open' for open-source models or 'close' for closed-source models.")
+    parser.add_argument('--model_names', nargs='+', default=["modelname1"], help="Name of the models.")
     parser.add_argument('--input_folder', type=str, default="toy_video", help='Path to the input folder containing videos')
     parser.add_argument('--output_folder', type=str, default="results", help='Path to the output folder')
     parser.add_argument('--video_frames_folder', type=str, default="video_frames_folder_temp", help='Path to the temporary folder for video frames')

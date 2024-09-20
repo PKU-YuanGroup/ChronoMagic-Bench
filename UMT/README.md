@@ -5,7 +5,7 @@ This repo describes how to evaluate a text-to-video (T2V) generation model on th
 The generated videos should be named corresponding to the prompt ID in ChronoMagic-Bench and placed in the evaluation folder, which is structured as follows. We also provide input examples in the ['UMT/toy_video'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/UMT/toy_video) .
 
 ```bash
-# for ChronoMagic-Bench
+# for open-source models
 `-- input_video_folder
     `-- model_name_a
         |-- 1
@@ -28,7 +28,7 @@ The generated videos should be named corresponding to the prompt ID in ChronoMag
             |-- 3d_printing_08.mp4
             `-- ...
             
-# for ChronoMagic-Bench-150
+# for close-source models
 -- input_video_folder
     |-- model_name_a
     |   |-- 3d_printing_08.mp4
@@ -59,9 +59,10 @@ If you only want to evaluate any one of the metrics instead of calculating all o
 
 ```bash
 current_dir=$(pwd)
-export MODEL_NAME="model_1649"
+export MODEL_NAME="test_open"
 export VIDEO_FOLDER="${current_dir}/toy_video"
-export TYPE=1649   # 150 or 1649
+export TYPE="open"     # open or close
+export VERSION="1649"  # 150 or 1649
 export PRETRAINED="UMT-msrvtt-7k.pth"
 input_path_step3=results/UMTScore/$TYPE/
 output_path_step3=results/UMTScore/$TYPE/

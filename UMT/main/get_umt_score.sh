@@ -10,12 +10,12 @@ NUM_GPUS=1
 NUM_CPU=64
 
 for MODEL_NAME in "${MODEL_NAMES[@]}"; do
-    if [[ ${TYPE} == 150 ]]; then
-        TEMP_OUTPUT_DIR="$OUTPUT_DIR/150/$MODEL_NAME"
-        LOG_DIR="$OUTPUT_DIR/150/$MODEL_NAME/logs"
+    if [[ ${TYPE} == "close" ]]; then
+        TEMP_OUTPUT_DIR="$OUTPUT_DIR/close/$MODEL_NAME"
+        LOG_DIR="$OUTPUT_DIR/close/$MODEL_NAME/logs"
 
         TEST_FILE=(
-            "data/chronomagic_${TYPE}.json"
+            "data/chronomagic_${VERSION}.json"
             "${VIDEO_FOLDER}/${MODEL_NAME}"
             "video"
         )
@@ -32,13 +32,13 @@ for MODEL_NAME in "${MODEL_NAMES[@]}"; do
             --test_file ${TEST_FILE[@]}
     fi
 
-    if [[ ${TYPE} == 1649 ]]; then
+    if [[ ${TYPE} == "open" ]]; then
         for part in {1..3}; do
-            TEMP_OUTPUT_DIR="$OUTPUT_DIR/1649/${MODEL_NAME}_${part}"
-            LOG_DIR="$OUTPUT_DIR/1649/${MODEL_NAME}_${part}/logs"
+            TEMP_OUTPUT_DIR="$OUTPUT_DIR/open/${MODEL_NAME}_${part}"
+            LOG_DIR="$OUTPUT_DIR/open/${MODEL_NAME}_${part}/logs"
 
             TEST_FILE=(
-                "data/chronomagic_${TYPE}.json"
+                "data/chronomagic_${VERSION}.json"
                 "${VIDEO_FOLDER}/${MODEL_NAME}/${part}"
                 "video"
             )

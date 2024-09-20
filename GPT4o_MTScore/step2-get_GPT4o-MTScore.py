@@ -8,7 +8,7 @@ def parse_args():
     parser.add_argument('--input_dir', required=True, help='Input directory containing the JSON file')
     parser.add_argument('--output_dir', required=True, help='Output directory for the result JSON file')
     parser.add_argument('--model_names', nargs='+', default=["test"], help="Name of the models.")
-    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
+    parser.add_argument('--eval_type', type=str, choices=["open", "close"], default="open", help="Specify the evaluation mode: 'open' for open-source models or 'close' for closed-source models.")
     return parser.parse_args()
 
 def parse_entry(value):
@@ -18,7 +18,7 @@ def parse_entry(value):
     return brief_reasoning_statement, score
 
 def main(input_dir, output_dir, model_name):
-    if args.eval_type == 1649:
+    if args.eval_type == "open":
         for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
             file_path = os.path.join(input_dir, f"{model_name}_{part}_metamorphic.json")
             result_file_path = os.path.join(output_dir, f'{model_name}_{part}_GPT4o-MTScore.json')
@@ -62,7 +62,7 @@ def main(input_dir, output_dir, model_name):
 
             with open(file_path, 'w') as file:
                 json.dump(data, file, indent=4)
-    elif args.eval_type == 150:
+    elif args.eval_type == "close":
         file_path = os.path.join(input_dir, f"{model_name}_metamorphic.json")
         result_file_path = os.path.join(output_dir, f'{model_name}_GPT4o-MTScore.json')
 

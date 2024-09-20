@@ -18,7 +18,7 @@ def parse_args():
     parser.add_argument('--grid_size', type=int, default=30, help="Grid size for the model.")
     parser.add_argument('--threshold', type=float, default=0.1, help="Threshold for determining frame cuts.")
     parser.add_argument('--size', type=int, default=None, help="Resize the shortest edge of the frame to this size.")
-    parser.add_argument('--eval_type', type=int, choices=[150, 1649], default=150)
+    parser.add_argument('--eval_type', type=str, choices=["open", "close"], default="open", help="Specify the evaluation mode: 'open' for open-source models or 'close' for closed-source models.")
     return parser.parse_args()
 
 def read_video_from_path(path, size=None):
@@ -105,7 +105,7 @@ def main(args):
         model = model.cuda()
 
     for model_name in tqdm(args.model_names, desc="Processing models"):
-        if args.eval_type == 1649:
+        if args.eval_type == "open":
             for part in tqdm(["1", "2", "3"], desc="Processing parts", leave=False):
                 input_dir = os.path.join(args.input_folder, model_name, part)
                 output_file_path = os.path.join(args.output_folder, f"{model_name}_{part}_CHScore.json")
@@ -149,7 +149,7 @@ def main(args):
                     json.dump(merged_data, merged_file, indent=4)
 
                 print(f"CHScore has been saved to {output_file_path}")
-        elif args.eval_type == 150:
+        elif args.eval_type == "close":
             input_dir = os.path.join(args.input_folder, model_name)
             output_file_path = os.path.join(args.output_folder, f"{model_name}_CHScore.json")
 
