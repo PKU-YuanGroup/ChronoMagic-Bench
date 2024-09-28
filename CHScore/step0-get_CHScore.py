@@ -14,7 +14,7 @@ def parse_args():
     parser.add_argument('--model_pth', type=str, default="cotracker2.pth", help="Path to the model checkpoint.")
     parser.add_argument('--input_folder', type=str, default="../toy_video", help="Folder containing input videos.")
     parser.add_argument('--output_folder', type=str, default="results/all", help="Folder to save output results.")
-    parser.add_argument('--model_names', nargs='+', default=["test"], help="Name of the models.")
+    parser.add_argument('--model_names', nargs='+', default=["test_close"], help="Name of the models.")
     parser.add_argument('--grid_size', type=int, default=30, help="Grid size for the model.")
     parser.add_argument('--threshold', type=float, default=0.1, help="Threshold for determining frame cuts.")
     parser.add_argument('--size', type=int, default=None, help="Resize the shortest edge of the frame to this size.")
