@@ -50,7 +50,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 ## 📣 News
 
 * ⏳⏳⏳ Evaluate more Text-to-Video Generation Models via *ChronoMagic-Bench*.
-* `[2024.09.16]`  ✨ Our paper is accepted by NeurIPS 2024 D&B track as a spotlight present.
+* `[2024.09.16]`  ✨ Our paper is accepted by **NeurIPS 2024 D&B track** as a **spotlight** present.
 * `[2024.08.13]`  🔥 We further evaluate [EasyAnimate-V3](https://github.com/aigc-apps/EasyAnimate) and [CogVideoX-2B](https://github.com/THUDM/CogVideo). The results are available [here](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench).
 * `[2024.06.30]`  🔥 We release the code of the **"Multi-Aspect Data Preprocessing"**, which is used to process the *ChronoMagic-Pro* dataset. Please click [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/Multi-Aspect_Preprocessing) and [here](https://huggingface.co/papers/2406.18522) to see more details. 
 * `[2024.06.29]`  🔥 Support evaluating customized Text-to-Video models. The code and instructions are available in this repo.
