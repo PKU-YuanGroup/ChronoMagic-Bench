@@ -1,15 +1,15 @@
 Model,Backbone,UMT-FVD↓,UMTScore↑,MTScore↑,CHScore↑,GPT4o-MTScore↑
-[OpenSora 1.1](https://github.com/hpcaitech/Open-Sora),DiT,195.43,2.678,0.444,25.34,2.52
-[OpenSora 1.2](https://github.com/hpcaitech/Open-Sora),DiT,166.92,2.781,0.375,14.65,2.56
-[OpenSoraPlan v1.1](https://github.com/PKU-YuanGroup/Open-Sora-Plan),DiT,188.53,2.421,0.327,23.15,2.19
-[EasyAnimate V3](https://github.com/aigc-apps/EasyAnimate),DiT,164.30,2.713,0.349,21.72,2.32
-[CogVideoX-2B](https://github.com/THUDM/CogVideo),DiT,159.31,3.225,0.404,32.99,2.92
-[ModelScopeT2V](https://huggingface.co/ali-vilab/text-to-video-ms-1.7b),U-Net,194.77,2.909,0.401,29.23,2.86
-[ZeroScope](https://huggingface.co/cerspense/zeroscope_v2_576w),U-Net,227.02,2.35,0.4,46.13,2.09
-[T2V-Zero](https://github.com/Picsart-AI-Research/Text2Video-Zero),U-Net,209.66,2.661,0.4,8.62,2.55
-[LaVie](https://github.com/Vchitect/LaVie),U-Net,166.97,2.763,0.346,28.01,2.46
-[AnimateDiff-V3](https://github.com/guoyww/AnimateDiff),U-Net,197.89,2.944,0.467,30.35,2.62
-[VideoCrafter2](https://github.com/AILab-CVC/VideoCrafter),U-Net,178.45,2.753,0.433,27.80,2.68
-[Latte](https://github.com/Vchitect/Latte),DiT,192.12,2.111,0.363,34.73,2.2
-[MagicTime](https://github.com/PKU-YuanGroup/MagicTime),U-Net,257.56,1.916,0.478,29.03,3.13
-[MCM-MSLION](https://yhzhai.github.io/mcm/),U-NeT,202.08,2.33,0.417,31.80,3.04
+[ModelScopeT2V](https://huggingface.co/ali-vilab/text-to-video-ms-1.7b),U-Net,194.77,2.909,0.401,61.07,2.86
+[ZeroScope](https://huggingface.co/cerspense/zeroscope_v2_576w),U-Net,227.02,2.35,0.4,99.67,2.09
+[T2V-Zero](https://github.com/Picsart-AI-Research/Text2Video-Zero),U-Net,209.66,2.661,0.4,20.78,2.55
+[LaVie](https://github.com/Vchitect/LaVie),U-Net,166.97,2.763,0.346,77.89,2.46
+[AnimateDiff-V3](https://github.com/guoyww/AnimateDiff),U-Net,197.89,2.944,0.467,70.85,2.62
+[VideoCrafter2](https://github.com/AILab-CVC/VideoCrafter),U-Net,178.45,2.753,0.433,80.10,2.68
+[MCM-MSLION](https://yhzhai.github.io/mcm/),U-NeT,202.08,2.33,0.417,62.60,3.04
+[MagicTime](https://github.com/PKU-YuanGroup/MagicTime),U-Net,257.56,1.916,0.478,81.82,3.13
+[Latte](https://github.com/Vchitect/Latte),DiT,192.12,2.111,0.363,68.68,2.20
+[OpenSora 1.1](https://github.com/hpcaitech/Open-Sora),DiT,195.43,2.678,0.444,73.98,2.52
+[OpenSora 1.2](https://github.com/hpcaitech/Open-Sora),DiT,166.92,2.781,0.375,51.60,2.56
+[OpenSoraPlan v1.1](https://github.com/PKU-YuanGroup/Open-Sora-Plan),DiT,188.53,2.421,0.327,68.52,2.19
+[EasyAnimate V3](https://github.com/aigc-apps/EasyAnimate),DiT,164.30,2.713,0.349,90.54,2.32
+[CogVideoX-2B](https://github.com/THUDM/CogVideo),DiT,159.31,3.225,0.404,43.15,2.92
