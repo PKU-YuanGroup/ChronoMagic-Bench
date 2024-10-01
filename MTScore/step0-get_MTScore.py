@@ -145,7 +145,7 @@ def main():
                 else:
                     print(f"No video scores found for {model_name}")
         elif args.eval_type == "close":
-            scores_json_path = os.path.join(args.output_folder, f'{model_name}_MTScore.json')
+            scores_json_path = os.path.join(args.output_folder, f'{model_name}_1_MTScore.json')
             video_folder = os.path.join(args.input_folder, model_name)
                 
             if os.path.exists(scores_json_path):
