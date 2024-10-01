@@ -14,7 +14,7 @@ def parse_args():
     parser.add_argument('--model_pth', type=str, default="cotracker2.pth", help="Path to the model checkpoint.")
     parser.add_argument('--input_folder', type=str, default="../toy_video", help="Folder containing input videos.")
     parser.add_argument('--output_folder', type=str, default="results/all", help="Folder to save output results.")
-    parser.add_argument('--model_names', nargs='+', default=["test_close"], help="Name of the models.")
+    parser.add_argument('--model_names', nargs='+', default=["test_open"], help="Name of the models.")
     parser.add_argument('--grid_size', type=int, default=30, help="Grid size for the model.")
     parser.add_argument('--threshold', type=float, default=0.1, help="Threshold for determining frame cuts.")
     parser.add_argument('--size', type=int, default=None, help="Resize the shortest edge of the frame to this size.")
@@ -45,12 +45,53 @@ def process_video(video_path, size):
     video_tensor = torch.from_numpy(video_original).permute(0, 3, 1, 2)[None].float()
     return video_original, video_tensor
 
+def get_movement_vector(trackers):
+    N = trackers.shape[2]
+    T = trackers.shape[1]
+
+    first_track = trackers[:,0,:,:].squeeze().reshape(N,2)
+    last_track = trackers[:, int(T // 2),:,:].squeeze().reshape(N,2)   # before: T // 2; after: T // 3
+    pos_vector = last_track - first_track
+
+    return pos_vector
+
 def get_score(model, video, grid_size=30, threshold=0.1):
-    _, pred_visibility = model(video, grid_size=grid_size)
+    trackers, pred_visibility = model(video, grid_size=grid_size)
     _, frames, point_num = pred_visibility.shape
     
-    miss_points = torch.sum(pred_visibility[0, :, :] == 0, dim=1).float() / point_num
-    miss_points_ap = miss_points[1:] - miss_points[:-1]
+    # Get the movement vector for each tracking point
+    pos_vector = get_movement_vector(trackers)
+
+    norms = torch.norm(pos_vector, dim=1, keepdim=True)
+    norms = norms + 1e-8  # Add epsilon to avoid division by zero
+    movement_directions = pos_vector / norms
+    initial_positions = trackers[0, 0, :, :]
+
+    miss_points = []
+    for i in range(frames):
+        # Identify missing points at frame i
+        miss_points_mask = (pred_visibility[0, i, :] == 0)
+
+        # Get positions at frame i
+        positions = trackers[0, i, :, :]
+
+        # Compute the change in position from the initial frame
+        delta_positions = positions - initial_positions
+
+        # Compute scalar projections onto each point's movement direction
+        scalar_projections = torch.sum(delta_positions * movement_directions, dim=1)
+
+        # Identify points that disappeared in their own far direction
+        far_direction_mask = (scalar_projections > 0)
+
+        # Adjust the missing points by excluding those in their far direction
+        adjusted_miss_points_mask = miss_points_mask & (~far_direction_mask)
+        miss_points_i = adjusted_miss_points_mask.sum().float() / point_num
+        miss_points.append(miss_points_i)
+
+    miss_points = torch.tensor(miss_points)
+    miss_points_ap = torch.abs(miss_points[1:] - miss_points[:-1])  # torch.Size([T - 1])
+
     frames_to_be_cut = (miss_points_ap > threshold).nonzero(as_tuple=True)[0] + 1
     frames_to_be_cut = frames_to_be_cut.cpu().tolist()
 
@@ -158,7 +199,7 @@ def main(args):
                 print(f"CHScore has been saved to {output_file_path}")
         elif args.eval_type == "close":
             input_dir = os.path.join(args.input_folder, model_name)
-            output_file_path = os.path.join(args.output_folder, f"{model_name}_CHScore.json")
+            output_file_path = os.path.join(args.output_folder, f"{model_name}_1_CHScore.json")
 
             if not os.path.exists(args.output_folder):
                 os.makedirs(args.output_folder)

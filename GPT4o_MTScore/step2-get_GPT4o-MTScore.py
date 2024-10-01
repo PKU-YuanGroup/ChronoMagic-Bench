@@ -64,7 +64,7 @@ def main(input_dir, output_dir, model_name):
                 json.dump(data, file, indent=4)
     elif args.eval_type == "close":
         file_path = os.path.join(input_dir, f"{model_name}_metamorphic.json")
-        result_file_path = os.path.join(output_dir, f'{model_name}_GPT4o-MTScore.json')
+        result_file_path = os.path.join(output_dir, f'{model_name}_1_GPT4o-MTScore.json')
 
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
