@@ -64,6 +64,13 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 
 *ChronoMagic-Bench* can reflect the **physical prior capacity** of Text-to-Video Generation Model.
 
+#### Resources
+* [ChronoMagic-Bench](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main): including 1649 time-lapse video-text pairs. (captioned by GPT-4o)
+* [ChronoMagic-Bench-150](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main): including 150 time-lapse video-text pairs. (captioned by GPT-4o)
+* [ChronoMagic](https://huggingface.co/datasets/BestWishYsh/ChronoMagic): including 2265 time-lapse video-text pairs. (captioned by GPT-4V)
+* [ChronoMagic-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro): including 460K time-lapse video-text pairs. (captioned by ShareGPT4Video)
+* [ChronoMagic-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH): including 150K time-lapse video-text pairs. (captioned by ShareGPT4Video)
+
 ### :mega: Overview
 
 In contrast to existing benchmarks, **ChronoMagic-Bench** emphasizes generating videos with high persistence and strong variation, i.e., metamorphic time-lapse videos with high physical prior content.
