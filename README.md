@@ -1,5 +1,5 @@
 <div align=center>
-<img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/images/logo_bench_00.jpg?raw=true" width="450px">
+<img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/images/logo_bench.jpg?raw=true" width="450px">
 </div>
 <h2 align="center"> <a href="https://arxiv.org/abs/2406.18522">[NeurIPS D&B 2024 Spotlight] ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation </a></h2>
 
