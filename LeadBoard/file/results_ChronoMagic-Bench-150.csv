@@ -9,7 +9,7 @@ Model,Backbone,UMT-FVD↓,UMTScore↑,MTScore↑,CHScore↑,GPT4o-MTScore↑
 [LaVie](https://github.com/Vchitect/LaVie),U-Net,210.39,2.714,0.35,81.32,2.5
 [AnimateDiff-V3](https://github.com/guoyww/AnimateDiff),U-Net,239.31,2.837,0.47,70.36,2.62
 [VideoCrafter2](https://github.com/AILab-CVC/VideoCrafter),U-Net,214.06,2.763,0.437,75.90,2.87
-[MCM-MSLION](https://yhzhai.github.io/mcm/),U-NeT,244.49,2.282,0.422,58.08,3.06
+[MCM-MSLION](https://yhzhai.github.io/mcm/),U-Net,244.49,2.282,0.422,58.08,3.06
 [MagicTime](https://github.com/PKU-YuanGroup/MagicTime),U-Net,294.72,1.763,0.479,77.98,3.05
 [Latte](https://github.com/Vchitect/Latte),DiT,232.29,2.122,0.366,72.57,2.42
 [OpenSora 1.1](https://github.com/hpcaitech/Open-Sora),DiT,241.09,2.676,0.448,75.94,2.57
