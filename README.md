@@ -44,6 +44,10 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 > [**MagicTime**](https://arxiv.org/abs/2404.05014) <br>
 > Shenghai Yuan, Jinfa Huang and Yujun Shi etc. <br>
 > [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/PKU-YuanGroup/MagicTime)  [![github](https://img.shields.io/github/stars/PKU-YuanGroup/MagicTime.svg?style=social)](https://github.com/PKU-YuanGroup/MagicTime)  <br>
+>
+> [**ConsisID**](https://arxiv.org/abs/2411.17440) <br>
+> Shenghai Yuan, Jinfa Huang and Xianyi He etc. <br>
+> [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/PKU-YuanGroup/ConsisID/)  [![github](https://img.shields.io/github/stars/PKU-YuanGroup/ConsisID.svg?style=social)](https://github.com/PKU-YuanGroup/ConsisID/)  <br>
 > </p></details>
 
 
