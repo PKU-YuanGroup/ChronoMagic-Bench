@@ -32,7 +32,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 
 <br>
 
-<details open><summary>💡 We also have other video generation project that may interest you ✨. </summary><p>
+<details open><summary>💡 We also have other video generation projects that may interest you ✨. </summary><p>
 <!--  may -->
 
 
