@@ -19,7 +19,7 @@
 [![zhihu](https://img.shields.io/badge/-Twitter@Adina%20Yakup%20-black?logo=twitter&logoColor=1D9BF0)](https://twitter.com/AdeenaY8/status/1806409038743171191)
 [![zhihu](https://img.shields.io/badge/-Twitter@Jinfa%20Huang%20-black?logo=twitter&logoColor=1D9BF0)](https://twitter.com/vhjf36495872/status/1806151450441159024?s=61&t=lLg2j2-sZ9igea_Cj3ToLw)
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellow)](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LICENSE) 
-![GitHub Repo stars](https://img.shields.io/github/stars/PKU-YuanGroup/ChronoMagic-Bench)
+[![github](https://img.shields.io/github/stars/PKU-YuanGroup/ChronoMagic-Bench.svg?style=social)](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/)
 
 </h5>
 
