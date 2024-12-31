@@ -53,15 +53,15 @@ def save_results_to_json(results, output_file):
 def main():
     args = parse_args()
 
-    for type in ["150", "1649"]:
-        new_input_path = os.path.join(args.input_path, type)
+    for eval_type in ["close", "open"]:
+        new_input_path = os.path.join(args.input_path, eval_type)
         if not os.path.exists(new_input_path):
             continue
-        new_output_path = os.path.join(args.output_path, type)
+        new_output_path = os.path.join(args.output_path, eval_type)
         os.makedirs(new_output_path, exist_ok=True)
 
         all_averages = {}
-
+        
         for metric in args.metrics:
             output_file = os.path.join(new_output_path, f'umt_{metric}.json')
             average_fvd_per_model = calculate_average_fvd_for_models(new_input_path, metric)
@@ -75,7 +75,7 @@ def main():
 
         merged_averages = {model: sum(values) / len(values) for model, values in all_averages.items() if values}
         
-        if type == "1649":
+        if eval_type == "open":
             prefix_scores = {}
             for key, value in merged_averages.items(): 
                 prefix = "_".join(key.split("_")[:-1])
@@ -85,7 +85,7 @@ def main():
             all_averages = prefix_scores
             merged_averages = {model: sum(values) / len(values) for model, values in all_averages.items() if values}
 
-        merge_output_file = os.path.join(args.input_path, f'merge_umtfvd_{type}.json')
+        merge_output_file = os.path.join(args.input_path, f'merge_umtfvd_{eval_type}.json')
         save_results_to_json(merged_averages, merge_output_file)
         print(f'Merged results saved to {merge_output_file}')
 

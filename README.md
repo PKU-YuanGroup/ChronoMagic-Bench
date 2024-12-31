@@ -54,6 +54,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 ## 📣 News
 
 * ⏳⏳⏳ Evaluate more Text-to-Video Generation Models via *ChronoMagic-Bench*.
+* `[2024.12.31]`  🔥 We further evaluate the widely popular [Sora](https://openai.com/sora/), which struggles to generate a diverse range of time-lapse videos effectively. This suggests that the generation of high-quality metamorphic videos remains an area in need of further exploration. The results are available [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results/Closed_Source).
 * `[2024.09.30]`  🔥 We have updated the calculation of the CHScore, making it more robust to temporally coherent disappearance of points. You can click [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/CHScore) for detailed implementation.
 * `[2024.09.26]`  ✨ Our paper is accepted by **NeurIPS 2024 D&B track** as a **spotlight** present.
 * `[2024.08.13]`  🔥 We further evaluate [EasyAnimate-V3](https://github.com/aigc-apps/EasyAnimate) and [CogVideoX-2B](https://github.com/THUDM/CogVideo). The results are available [here](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench).
