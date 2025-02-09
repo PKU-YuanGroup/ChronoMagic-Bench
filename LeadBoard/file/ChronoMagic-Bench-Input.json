@@ -1,9 +1,0 @@
-{
-    "test": {
-        "Average_MTScore": 0.2613712220142285,
-        "Average_CHScore": 4.1676077942528345,
-        "Average_GPT4o-MTScore": 2.3333333333333335,
-        "Average_UMT-FVD": -1,
-        "Average_UMTScore": -1
-    }
-}

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation">
+  <meta name="keywords" content="Evaluation, Benchmark, Prompts, Dataset, Video Generation, Text-to-Video, AIGC">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation</title>
+
+<!--   Global site tag (gtag.js) - Google Analytics-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5ZVQZ7NHC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y5ZVQZ7NHC');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span style="color:#B9770E; font-weight: bold; font-style: italic">ChronoMagic-Bench</span> : A Benchmark for Metamorphic Evaluation of <br>Text-to-Time-lapse Video Generation</h1>
+
+          <div class="is-size-5 publication-authors">
+            <div class="author-row">
+              <span class="author-block" style="font-size: 28px;">
+                ✨NeurIPS 2024 D&B Spotlight✨
+              </span>
+            </div>
+            <div class="author-row">
+              <span class="author-block">
+                <a href="https://shyuanbest.github.io/">Shenghai Yuan</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://infaaa.github.io/">Jinfa Huang</a><sup>3</sup>,</span>
+              <span class="author-block">
+                <a href="https://cheliosoops.github.io/YongqiXu.io/">Yongqi Xu</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://cheliosoops.github.io/YongqiXu.io/">YaoYang Liu</a><sup>1</sup>,</span> 
+              <span class="author-block">
+                <a href="https://sherrylone.github.io/">Shaofeng Zhang</a><sup>5</sup>,</span>              
+            </div>
+            <div class="author-row">
+              <span class="author-block">
+                <a href="https://yujun-shi.github.io/">Yujun Shi</a><sup>6</sup>,</span>
+              <span class="author-block">
+                <a href="https://ruijie-zhu.github.io/">Ruijie Zhu</a><sup>7</sup>,</span>
+              <span class="author-block">
+              <a href="https://cxh0519.github.io/">Xinhua Cheng</a><sup>1,4</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.cs.rochester.edu/u/jluo/">Jiebo Luo</a><sup>3</sup>,</span>
+              <span class="author-block">
+                <a href="https://yuanli2333.github.io/">Li Yuan</a><sup>1,2,†</sup></span>
+
+            </div>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Peking University,</span>
+            <span class="author-block"><sup>2</sup>Peng Cheng Laboratory,</span>
+            <span class="author-block"><sup>3</sup>University of Rochester,</span>
+            <span class="author-block"><sup>4</sup>Rabbitpre Intelligence,</span>
+            <span class="author-block"><sup>5</sup>Shanghai Jiao Tong University,</span>
+            <span class="author-block"><sup>6</sup>National University of Singapore,</span>
+            <span class="author-block"><sup>7</sup>University of California Santa Cruz</span>
+          </div>
+
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            
+            <span class="link-block">
+              <a href="https://huggingface.co/papers/2406.18522" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <!-- Code Link. -->
+            <span class="link-block">
+              <a href="https://github.com/PKU-YuanGroup/ChronoMagic-Bench" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+              </a>
+            </span>
+            <!-- Huggingface Demo Link. -->
+            <span class="link-block">
+              <a href="https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="static/images/hf-logo.svg" style="display:block;width:330px;height:240px" />
+                </span>
+                <span>LeaderBoard</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="static/images/hf-logo.svg" style="display:block;width:330px;height:240px" />
+                </span>
+                <span>ChronoMagic-Pro</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="static/images/hf-logo.svg" style="display:block;width:330px;height:240px" />
+                </span>
+                <span>ChronoMagic-ProH</span>
+              </a>
+            </span>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">ChronoMagic-Bench</span> can reflect the physical prior capacity of the T2V model !
+      </h2>
+    </div>
+  </div>
+</section>
+  
+<!-- teaser -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
+        <thead style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+            <tr>
+                <th style="padding: 10px;">Biological</th>
+                <th style="padding: 10px;">Human Created</th>
+                <th style="padding: 10px;">Meteorological</th>
+                <th style="padding: 10px;">Physical</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/97e3f817-85d2-4e7a-9525-629ed18523eb" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/bda970be-953c-4501-b25e-cb6474426faa" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/d9272843-83d3-4b8d-82ea-365094f14bfb" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/0bed75cb-fe75-4152-a043-146c35770057" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+              <td style="padding: 2px 10px;">"Time-lapse of microgreens germinating and growing ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a modern house being constructed in ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a beach sunset capturing the sun's ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of an ice cube melting on a solid ..."</td>
+          </tr>
+          <tr>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/f2581ae0-adc1-4df7-895f-09ac4d05d3ff" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/0e09473b-6e17-4bf1-87e3-0e68d81faeab" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/e91ee705-ad4e-4702-ab16-dbe20a94ee7b" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/998af63a-54d7-4d2c-b20a-f432f8566f1d" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+              <td style="padding: 2px 10px;">"Time-lapse of microgreens germinating and growing ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a 3D printing process: starting with ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a solar eclipse showing the moon's ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a cake baking in an oven, depicting ..."</td>
+          </tr>
+          <tr>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/2f1dcaa0-e1b3-4c7b-90fa-8ede499f62d2" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/290e429c-f69b-4ed3-839a-ef5defc2a9cd" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/b38daaa7-ca61-46c6-bfc1-9da227dd7a2e" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/987ac56e-b823-4dd1-a3b1-fcaa16282d07" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+          </tr>
+          <tr>
+              <td style="padding: 2px 10px;">"Time-lapse of a butterfly metamorphosis from ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a busy nighttime city intersection ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a landscape transitioning from a ..."</td>
+              <td style="padding: 2px 10px;">"Time-lapse of a strawberry rotting: starting with ..."</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table style="margin-top:20px; width:880px; margin-bottom:20px; border: 1px solid #ddd; margin-left: auto; margin-right: auto; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+        <thead style="background-color: #f2f2f2;">
+            <tr style="border-bottom: 1px solid #ddd;">
+                <th style="padding: 10px; text-align: center;">Backbone</th>
+                <th style="padding: 10px; text-align: center;">Type</th>
+                <th style="padding: 10px; text-align: center;">Visual Quality</th>
+                <th style="padding: 10px; text-align: center;">Text Relevance</th>
+                <th style="padding: 10px; text-align: center;">Metamorphic Amplitude</th>
+                <th style="padding: 10px; text-align: center;">Temporal Coherence</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>UCF-101</strong></td>
+                <td style="padding: 10px; text-align: center;">General</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>Make-a-Video-Eval</strong></td>
+                <td style="padding: 10px; text-align: center;">General</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>MSR-VTT</strong></td>
+                <td style="padding: 10px; text-align: center;">General</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>FETV</strong></td>
+                <td style="padding: 10px; text-align: center;">General</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>VBench</strong></td>
+                <td style="padding: 10px; text-align: center;">General</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+            </tr>
+            <tr style="border-bottom: 2px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>T2VScore</strong></td>
+                <td style="padding: 10px; text-align: center;">General</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+                <td style="padding: 10px; text-align: center;">❌</td>
+            </tr>
+            <tr>
+                <td style="padding: 10px; text-align: center;"><strong>ChronoMagic-Bench</strong></td>
+                <td style="padding: 10px; text-align: center;">Time-lapse</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+                <td style="padding: 10px; text-align: center;">✔️</td>
+            </tr>
+        </tbody>
+      </table>
+
+      <div class="content has-text-justified">
+        <p style="margin-top: 0;">
+          <b>Overview of existing T2V benchmarks.</b> We propose ChronoMagic-Bench, a benchmark for <b>metamorphic evaluation</b> of <b>text-to-
+            time-lapse</b> video generation, which provides a comprehensive evaluation system for T2V. We specifically design <b>four major categories</b>
+            for time-lapse videos <b><i>(as shown below)</i></b>, including <i>biological</i>, <i>human-created</i>, <i>meteorological</i>, 
+            and <i>physical</i> videos, and extend these to <b>75 subcategories</b>. Based on this, we construct <b>ChronoMagic-Bench</b>, comprising 1,649 
+            prompts and their corresponding reference time-lapse videos. In contrast to existing benchmarks, <b>ChronoMagic-Bench</b> emphasizes 
+            generating videos with high persistence and strong variation, i.e., metamorphic videos with high physical prior content. Additionally, 
+            we develop <b>MTScore</b> for evaluating metamorphic amplitude and <b>CHScore</b> for temporal coherence to address the deficiencies in evaluation 
+            metrics and perspectives.
+        </p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Abstract. -->
+<section>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered" style="margin-top: 10px; margin-bottom: 0px;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 is-centered">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose a novel text-to-video (T2V) generation benchmark, <i>ChronoMagic-Bench</i>, to evaluate the temporal and metamorphic 
+            knowledge skills in time-lapse video generation of the T2V models (e.g. Sora and Lumiere). Compared to existing benchmarks that 
+            focus on visual quality and text relevance of generated videos, <i>ChronoMagic-Bench</i> focuses on the models’ ability to generate 
+            time-lapse videos with significant metamorphic amplitude and temporal coherence. The benchmark probes T2V models for their physics, 
+            biology, and chemistry capabilities, in a free-form text control. For these purposes, <i>ChronoMagic-Bench</i> introduces <b>1,649</b> 
+            prompts and real-world videos as references, categorized into four major types of time-lapse videos: biological, human creation, 
+            meteorological, and physical phenomena, which are further divided into 75 subcategories. This categorization ensures a comprehensive 
+            evaluation of the models’ capacity to handle diverse and complex transformations. To accurately align human preference on the benchmark, we 
+            introduce two new automatic metrics, MTScore and CHScore, to evaluate the videos' metamorphic attributes and temporal coherence. MTScore 
+            measures the metamorphic amplitude, reflecting the degree of change over time, while CHScore assesses the temporal coherence, ensuring 
+            the generated videos maintain logical progression and continuity. Based on the <i>ChronoMagic-Bench</i>, we conduct comprehensive manual 
+            evaluations of eighteen representative T2V models, revealing their strengths and weaknesses across different categories of prompts, 
+            providing a thorough evaluation framework that addresses current gaps in video generation research. More encouragingly, we create a 
+            large-scale <i>ChronoMagic-Pro</i> dataset, containing <b>460k</b> high-quality pairs of 720p time-lapse videos and detailed captions. 
+            Each caption ensures high physical content and large metamorphic amplitude, which have a far-reaching impact on the video generation community.
+          </p>
+        </div>
+      </div>
+    </div>
+</section>
+<!--/ Abstract. -->
+
+
+<!-- Radar_Open Source -->
+<section class="section" style="margin-top:-50px; margin-bottom:-100px;">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">ChronoMagic-Bench Results of Open-Source T2V Models</h2>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="https://github.com/user-attachments/assets/b9e4c3eb-6892-4b47-8163-c57b651c81cb" style="width:600px; margin-top:10px;margin-bottom:10px;"/>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 0;">
+          We visualize the evaluation results of various <b>open-source</b> T2V generation models across ChronoMagic-Bench.
+        </p>
+        <p class="is-size-7" style="margin-top: 0;">
+          The values have been normalized for better readability of the chart. The normalization process involves scaling each set of performance values to a common scale between 0.3 and 0.8. The formula used for normalization is: (value - min_value) / (max_value - min_value).
+    </div>
+  </div>
+</section>
+
+<!-- Radar_Close Source -->
+<section class="section" style="margin-top:-150px; margin-bottom:50px;">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">ChronoMagic-Bench Results of Closed-Source T2V Models</h2>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="https://github.com/user-attachments/assets/75e243f3-d868-4ffc-a525-c11eb3166414" style="width:500px; margin-top:10px;margin-bottom:10px;"/>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 0;">
+          We visualize the evaluation results of various <b>closed-source</b> T2V generation models across ChronoMagic-Bench.
+        </p>
+        <p class="is-size-7" style="margin-top: 0;">
+          The values have been normalized for better readability of the chart. The normalization process involves scaling each set of performance values to a common scale between 0.3 and 0.8. The formula used for normalization is: (value - min_value) / (max_value - min_value).
+    </div>
+  </div>
+</section>
+
+
+<!-- LeaderBoard -->
+<section class="hero is-light" style="margin-top:-100px; margin-bottom:-50px;">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">Leaderboard</h2>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <iframe
+            src="https://bestwishysh-chronomagic-bench.hf.space"
+            frameborder="0"
+            width="1400"
+            height="700"
+           ></iframe>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section"  style="margin-top:0px; margin-bottom:-140px;">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="section-title">
+        <h2 class="title is-3">Metamorphic Amplitude References</h2>
+        <h2 class="subtitle has-text-centered">Evaluation examples with varying MTScore. The larger score denotes a better performance.</h2>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
+        <thead style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+            <tr>
+                <th style="padding: 10px;">MTScore ≈ 0.2</th>
+                <th style="padding: 10px;">MTScore ≈ 0.3</th>
+                <th style="padding: 10px;">MTScore ≈ 0.4</th>
+                <th style="padding: 10px;">MTScore ≈ 0.5</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/b914a071-a359-4860-aef6-d5e7fdbae9d3" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/b0b13b6b-f5f0-4ac6-b6b6-9d969bdf2018" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/b3efacdb-823d-4c1b-b901-b9f2c788f7f0" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/14e709f6-1706-4699-b258-9912b74fa09f" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+
+<section class="section"  style="margin-top:-100px; margin-bottom:-60px;">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="section-title">
+        <h2 class="title is-3">Temporal Coherence References</h2>
+        <h2 class="subtitle has-text-centered">Evaluation examples with varying CHScore. The larger score denotes a better performance.</h2>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
+        <thead style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+            <tr>
+                <th style="padding: 10px;">CHScore ≈ 40.0</th>
+                <th style="padding: 10px;">CHScore ≈ 55.0</th>
+                <th style="padding: 10px;">CHScore ≈ 80.0</th>
+                <th style="padding: 10px;">CHScore ≈ 100.0</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/cde2a247-ee2b-4d94-89c7-be4d8bde1ecc" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/7decee3d-440d-4a74-949a-ae22f8cf808c" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/8af5528d-4600-43cb-97ec-3b1c14c54481" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+              <td>
+                  <video src="https://github.com/user-attachments/assets/73df63f2-3631-438e-8939-582e7b4161ec" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+              </td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section class="section"  style="margin-top:-145px; margin-bottom:-60px;">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="section-title">
+        <h2 class="title is-3">Validation of the Automatic Metrics</h2>
+        <h2 class="subtitle has-text-centered">
+          We invited 171 participants to evaluate the videos across four dimensions, and select only five representative baseline results from which 
+          users can choose to enhance user satisfaction.
+        </h2>
+      </div>
+      <div class="publication-img">
+        <img id="architecture" src="https://github.com/user-attachments/assets/53cc8296-b949-4d80-8a96-0a200388ccef" style="width:1000px; margin-bottom:-10px;"/>
+      </div>
+      <p style="margin-top: 10px;">
+        It is evident that the proposed three metrics, <b>MTScore</b>, <b>CHScore</b>, and <b>GPT4o-MTScore</b>, are consistent with human perception 
+        and can accurately reflect the metamorphic amplitude and temporal coherence of T2V models. (ð and £ represent Kendall's&uarr; 
+        and Spearman's&uarr; coefficients, respectively. &uarr; denotes higher is better.)
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section"  style="margin-top:-134px; margin-bottom:-60px;">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="section-title">
+        <h2 class="title is-3">Evaluation examples of Different Models</h2>
+      </div>
+      <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
+        <thead style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+            <tr>
+                <th style="padding: 10px;">Method</th>
+                <th style="padding: 10px;">"an unidentified plant growing [...]"</th>
+                <th style="padding: 10px;">"day-to-night cycle over a city [...]"</th>
+                <th style="padding: 10px;">"showing varying traffic flow [...]"</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                <video src="https://github.com/user-attachments/assets/0bc20024-1de6-4b02-af61-062042c84a27" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                <br>MTScore=0.21, CHScore=85.80
+            </td>
+            <td style="padding: 10px;">
+                <video src="https://github.com/user-attachments/assets/4ebb8407-1fda-4e64-883b-b5a49fb35384" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                <br>MTScore=0.35, CHScore=73.03
+            </td>
+            <td style="padding: 10px;">
+                <video src="https://github.com/user-attachments/assets/822de8b4-dd18-4759-aa15-272578d6c3f5" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                <br>MTScore=0.48, CHScore=53.96
+            </td>
+        </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/cd037489-8f3c-4e97-bd22-ecafb7d4b3c4" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.20, CHScore=91.93
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/70a2a5b3-3b71-407a-a1e8-4105165c961d" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.41, CHScore=54.77
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/d0b94a96-d90a-43cd-9d33-1ea564fc1bd7" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.50, CHScore=47.67
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/c3a17a63-1f44-493f-9d44-e749105ba6ed" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.19, CHScore=106.32
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/12753dbc-d2d8-4022-a1d8-d506e49f820e" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.38, CHScore=82.91
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/c39a52a8-c389-4f2a-939e-10debf71d4bb" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.47, CHScore=48.87
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/c5f88519-3b84-4122-b094-4a9a2c96d0f1" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.31, CHScore=85.35
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/4075939f-d033-4470-9b23-907afa7219a1" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.43, CHScore=85.15
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/955c14b7-5b04-4953-8957-e6e7e6e55a83" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.54, CHScore=53.31
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/cbfb5344-68e7-4ce7-8eb2-8248cf1f7c68" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.32, CHScore=47.39
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/f3534de6-33a0-4630-ab23-415c28ff32fb" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.28, CHScore=79.66
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/d43cdf3d-657c-4442-8e51-2f9d37939754" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.49, CHScore=38.24
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/bba24ef6-52eb-497c-8654-c43f2280f17e" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.27, CHScore=59.45
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/23ffa889-dc1f-41ae-9190-52eac130946f" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.35, CHScore=54.14
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/fb9c03d2-2861-46bd-94d6-fabbe4ae1e30" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.50, CHScore=50.05
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/0ab21372-51ce-43fd-a90b-ae38c771cbf0" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.49, CHScore=63.96
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/4380dd2e-1f1b-42f8-b901-a928b88c48de" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.34, CHScore=44.28
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/52224129-ecb8-4853-bd71-bf94e60dced5" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.51, CHScore=73.56
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/407e70ec-4447-4d69-8b31-c9d4d7f5a03d" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.17, CHScore=93.38
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/cfd4ae0f-23ea-41c8-8a05-bc13faf6bb9e" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.18, CHScore=40.14
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/da206a8f-6cdb-4b2b-9136-b87af3fc32bb" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.31, CHScore=44.59
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/d05d0790-579b-48a1-b993-88e89f5f3806" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.19, CHScore=79.39
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/4a310fca-7ca7-4239-8d50-7ec1e4143b47" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.15, CHScore=58.01
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/7336bfb0-463a-437d-81bf-c10a820a5d8d" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.21, CHScore=49.07
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/bad3c12e-e2ab-4362-899b-6cbde5a8fadb" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.13, CHScore=85.89
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/174af7a7-3afc-4bce-ae1c-084380c4000d" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.22, CHScore=38.45
+              </td>
+              <td style="padding: 10px;">
+                  <video src="https://github.com/user-attachments/assets/300e90ed-7733-4701-baf0-b90d78e688d0" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                  <br>MTScore=0.41, CHScore=38.40
+              </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+            <td style="padding: 10px;">
+                <video src="https://github.com/user-attachments/assets/3fff5e9f-cf73-4a1c-9266-778314daec9e" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                <br>MTScore=0.22, CHScore=81.44
+            </td>
+            <td style="padding: 10px;">
+                <video src="https://github.com/user-attachments/assets/ecfc332c-f87c-4d83-9fd8-aad6bc994dda" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                <br>MTScore=0.42, CHScore=41.65
+            </td>
+            <td style="padding: 10px;">
+                <video src="https://github.com/user-attachments/assets/012a7c3e-dcc9-4a0d-b99b-9887e769d705" autoplay loop muted style="width: 235px; height: 235px;"></video>
+                <br>MTScore=0.44, CHScore=39.68
+            </td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: bold; vertical-align: middle;">Gen-2</td>
+          <td style="padding: 10px;">
+              <video src="https://github.com/user-attachments/assets/8e6851e1-8913-42b2-a32d-0e20aeec1ca4" autoplay loop muted style="width: 235px; height: 235px;"></video>
+              <br>MTScore=0.30, CHScore=50.91
+          </td>
+          <td style="padding: 10px;">
+              <video src="https://github.com/user-attachments/assets/38c2c65e-87ab-4e25-88f2-46aaa78c270b" autoplay loop muted style="width: 235px; height: 235px;"></video>
+              <br>MTScore=0.45, CHScore=75.92
+          </td>
+          <td style="padding: 10px;">
+              <video src="https://github.com/user-attachments/assets/329000c3-970f-4b4a-a237-890cf12d17b5" autoplay loop muted style="width: 235px; height: 235px;"></video>
+              <br>MTScore=0.46, CHScore=36.47
+          </td>
+      </tr>
+      </tbody>  
+    </table>    
+    </div>
+  </div>
+</section>
+
+<!-- bench_statistics -->
+<section class="section" style="margin-top:-134px; margin-bottom:-100px;">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">ChronoMagic-Bench Statistics</h2>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="https://github.com/user-attachments/assets/a0e6991f-c2ee-48b7-8ead-647ef0cf0cfc" style="width:800px; margin-top:10px;margin-bottom:-10px;"/>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 0; margin-bottom:10px;">
+          Both <b>ChronoMagic-Bench</b> and <b>ChronoMagic-Pro</b> are based on four major natural phenomena. The <b>"biological"</b> category encompasses all content 
+          related to living organisms; The <b>"human-created"</b> category includes objects created or influenced by human activities; The <b>"meteorological"</b> 
+          category covers meteorological phenomena; The <b>"physical"</b> category pertains to non-biological physical phenomena, such as water flow and volcanic eruptions. 
+        </p>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="https://github.com/user-attachments/assets/fb37694e-0f51-4400-b038-1c530e1a2700" style="width:750px; margin-top:10px;margin-bottom:-25px;"/>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 0;">
+          This image showcases the <b>word cloud</b> and <b>word count range</b> of the prompts in <b>ChronoMagic-Bench</b>, which mainly describe videos with <i>large 
+          metamorphic amplitude</i> and <i>long persistence</i>.
+        </p>
+
+    </div>
+  </div>
+</section>
+
+<!-- datasets_statistics -->
+<section class="section" style="margin-top:-134px; margin-bottom:-50px;">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="section-title">
+          <h2 class="title is-3 is-centered">ChronoMagic-Pro/ProH Statistics</h2>
+        </div>
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="publication-img">
+              <img id="architecture" src="https://github.com/user-attachments/assets/5b1fc478-260e-4965-bc6d-660c10f45b55" style="width:880px; margin-top:10px;margin-bottom:-10px;"/>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 0; margin-bottom:10px;">
+          <b>Video clips statistics in (Top) <i>ChronoMagic-Pro</i> and (Bottom) <i>ChronoMagic-ProH</i>.</b> The dataset includes a diverse 
+          range of categories, durations and caption lengths, with most of the videos at the 720P resolution. <i>ChronoMagic-ProH</i> has higher
+          quality and purity (e.g. Aesthetic Score)
+        </p>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- BibTeX -->
+<section class="hero is-light is-small" id="BibTeX" >
+  <div class="container is-max-desktop content" style="margin-top: 40px; margin-bottom: 20px;">
+    <h2 class="title">BibTeX</h2>
+    <p>If you find our work useful, please consider citing our paper:</p>
+    <pre><code>@article{yuan2024chronomagic,
+  title={ChronoMagic-Bench: A Benchmark for Metamorphic Evaluation of Text-to-Time-lapse Video Generation},
+  author={Yuan, Shenghai and Huang, Jinfa and Xu, Yongqi and Liu, Yaoyang and Zhang, Shaofeng and Shi, Yujun and Zhu, Ruijie and Cheng, Xinhua and Luo, Jiebo and Yuan, Li},
+  journal={arXiv preprint arXiv:2406.18522},
+  year={2024}
+}</code></pre>
+  </div>
+</section>
+
+
+<!-- footer -->
+<footer class="footer">
+  <div class="container">
+    <div align=center>
+      <img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/images/logo_bench.jpg?raw=true" width="450px">
+    </div>
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2406.18522">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/PKU-YuanGroup/ChronoMagic-Bench" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is constructed using the templet provided by <a href="https://nerfies.github.io/"> Nerfies</a>. Thanks for their effort.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

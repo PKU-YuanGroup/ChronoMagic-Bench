@@ -1,1 +1,0 @@
-Avg UMTScores: {'UMTScore': -1.9560547}

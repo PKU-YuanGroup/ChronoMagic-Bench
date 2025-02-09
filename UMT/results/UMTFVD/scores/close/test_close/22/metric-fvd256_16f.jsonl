@@ -1,2 +1,0 @@
-{"results": {"fvd256_16f": 1127.9622959541534}, "metric": "fvd256_16f", "total_time": 6.327569007873535, "total_time_str": "6s", "num_gpus": 1, "snapshot_pkl": null, "timestamp": 1719629561.8825498}
-{"results": {"fvd256_16f": 1127.9622959541534}, "metric": "fvd256_16f", "total_time": 5.967519044876099, "total_time_str": "6s", "num_gpus": 1, "snapshot_pkl": null, "timestamp": 1719629988.407744}
