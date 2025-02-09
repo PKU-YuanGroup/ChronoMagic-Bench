@@ -81,133 +81,157 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 In contrast to existing benchmarks, **ChronoMagic-Bench** emphasizes generating videos with high persistence and strong variation, i.e., metamorphic time-lapse videos with high physical prior content.
 
 <table style="margin-bottom:auto; border: 1px solid #ddd; margin-left: auto; margin-right: auto; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-        <thead style="background-color: #f2f2f2;">
-            <tr style="border-bottom: 1px solid #ddd;">
-                <th style="text-align: center;">Backbone</th>
-                <th style="text-align: center;">Type</th>
-                <th style="text-align: center;">Visual Quality</th>
-                <th style="text-align: center;">Text Relevance</th>
-                <th style="text-align: center;">Metamorphic Amplitude</th>
-                <th style="text-align: center;">Temporal Coherence</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="text-align: center;"><strong>UCF-101</strong></td>
-                <td style="text-align: center;">General</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">❌</td>
-                <td style="text-align: center;">❌</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="text-align: center;"><strong>Make-a-Video-Eval</strong></td>
-                <td style="text-align: center;">General</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">❌</td>
-                <td style="text-align: center;">❌</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="text-align: center;"><strong>MSR-VTT</strong></td>
-                <td style="text-align: center;">General</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">❌</td>
-                <td style="text-align: center;">❌</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="text-align: center;"><strong>FETV</strong></td>
-                <td style="text-align: center;">General</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">❌</td>
-                <td style="text-align: center;">✔️</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="text-align: center;"><strong>VBench</strong></td>
-                <td style="text-align: center;">General</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">❌</td>
-                <td style="text-align: center;">✔️</td>
-            </tr>
-            <tr style="border-bottom: 2px solid #ddd;">
-                <td style="text-align: center;"><strong>T2VScore</strong></td>
-                <td style="text-align: center;">General</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">❌</td>
-                <td style="text-align: center;">❌</td>
-            </tr>
-            <tr>
-                <td style="text-align: center;"><strong>ChronoMagic-Bench</strong></td>
-                <td style="text-align: center;">Time-lapse</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-                <td style="text-align: center;">✔️</td>
-            </tr>
-        </tbody>
+    <thead style="background-color: #f2f2f2;">
+        <tr style="border-bottom: 1px solid #ddd;">
+            <th style="text-align: center;">Backbone</th>
+            <th style="text-align: center;">Type</th>
+            <th style="text-align: center;">Visual Quality</th>
+            <th style="text-align: center;">Text Relevance</th>
+            <th style="text-align: center;">Metamorphic Amplitude</th>
+            <th style="text-align: center;">Temporal Coherence</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="text-align: center;"><strong>UCF-101</strong></td>
+            <td style="text-align: center;">General</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">❌</td>
+            <td style="text-align: center;">❌</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="text-align: center;"><strong>Make-a-Video-Eval</strong></td>
+            <td style="text-align: center;">General</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">❌</td>
+            <td style="text-align: center;">❌</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="text-align: center;"><strong>MSR-VTT</strong></td>
+            <td style="text-align: center;">General</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">❌</td>
+            <td style="text-align: center;">❌</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="text-align: center;"><strong>FETV</strong></td>
+            <td style="text-align: center;">General</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">❌</td>
+            <td style="text-align: center;">✔️</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="text-align: center;"><strong>VBench</strong></td>
+            <td style="text-align: center;">General</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">❌</td>
+            <td style="text-align: center;">✔️</td>
+        </tr>
+        <tr style="border-bottom: 2px solid #ddd;">
+            <td style="text-align: center;"><strong>T2VScore</strong></td>
+            <td style="text-align: center;">General</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">❌</td>
+            <td style="text-align: center;">❌</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;"><strong>ChronoMagic-Bench</strong></td>
+            <td style="text-align: center;">Time-lapse</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+            <td style="text-align: center;">✔️</td>
+        </tr>
+    </tbody>
 </table>
 
 
 We specifically design **four major categories** for time-lapse videos *(as shown below)*, including *biological*, *human-created*, *meteorological*, and *physical* videos, and extend these to **75 subcategories**. Based on this, we construct **ChronoMagic-Bench**, comprising 1,649 prompts and their corresponding reference time-lapse videos. 
 
 <table style="width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px; text-align: center;">
-        <thead style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
-            <tr>
-                <th style="padding: 10px;">Biological</th>
-                <th style="padding: 10px;">Human Created</th>
-                <th style="padding: 10px;">Meteorological</th>
-                <th style="padding: 10px;">Physical</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_0_0.gif?raw=true" alt="Biological" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_1_0.gif?raw=true" alt="Human Created" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_2_0.gif?raw=true" alt="Meteorological" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_3_0.gif?raw=true" alt="Physical" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="padding: 2px 10px;">"Time-lapse of microgreens germinating and growing ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a modern house being constructed in ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a beach sunset capturing the sun's ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of an ice cube melting on a solid ..."</td>
-            </tr>
-            <tr>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_0_1.gif?raw=true" alt="Biological" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_1_1.gif?raw=true" alt="Human Created" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_2_1.gif?raw=true" alt="Meteorological" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_3_1.gif?raw=true" alt="Physical" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-            </tr>
-            <tr style="border-bottom: 1px solid #ddd;">
-                <td style="padding: 2px 10px;">"Time-lapse of microgreens germinating and growing ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a 3D printing process: starting with ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a solar eclipse showing the moon's ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a cake baking in an oven, depicting ..."</td>
-            </tr>
-            <tr>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_0_2.gif?raw=true" alt="Biological" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_1_2.gif?raw=true" alt="Human Created" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_2_2.gif?raw=true" alt="Meteorological" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-                <td><img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/videos/A_3_2.gif?raw=true" alt="Physical" style="width: 235px; height: 235px; padding: 5px 10px;"></td>
-            </tr>
-            <tr>
-                <td style="padding: 2px 10px;">"Time-lapse of a butterfly metamorphosis from ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a busy nighttime city intersection ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a landscape transitioning from a ..."</td>
-                <td style="padding: 2px 10px;">"Time-lapse of a strawberry rotting: starting with ..."</td>
-            </tr>
-        </tbody>
-</table>    
+    <thead style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+        <tr>
+            <th style="padding: 10px;">Biological</th>
+            <th style="padding: 10px;">Human Created</th>
+            <th style="padding: 10px;">Meteorological</th>
+            <th style="padding: 10px;">Physical</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <video src="https://github.com/user-attachments/assets/97e3f817-85d2-4e7a-9525-629ed18523eb" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/bda970be-953c-4501-b25e-cb6474426faa" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/d9272843-83d3-4b8d-82ea-365094f14bfb" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/0bed75cb-fe75-4152-a043-146c35770057" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 2px 10px;">"Time-lapse of microgreens germinating and growing ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a modern house being constructed in ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a beach sunset capturing the sun's ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of an ice cube melting on a solid ..."</td>
+        </tr>
+        <tr>
+            <td>
+                <video src="https://github.com/user-attachments/assets/f2581ae0-adc1-4df7-895f-09ac4d05d3ff" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/0e09473b-6e17-4bf1-87e3-0e68d81faeab" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/e91ee705-ad4e-4702-ab16-dbe20a94ee7b" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/998af63a-54d7-4d2c-b20a-f432f8566f1d" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 2px 10px;">"Time-lapse of microgreens germinating and growing ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a 3D printing process: starting with ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a solar eclipse showing the moon's ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a cake baking in an oven, depicting ..."</td>
+        </tr>
+        <tr>
+            <td>
+                <video src="https://github.com/user-attachments/assets/2f1dcaa0-e1b3-4c7b-90fa-8ede499f62d2" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/290e429c-f69b-4ed3-839a-ef5defc2a9cd" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/b38daaa7-ca61-46c6-bfc1-9da227dd7a2e" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+            <td>
+                <video src="https://github.com/user-attachments/assets/987ac56e-b823-4dd1-a3b1-fcaa16282d07" autoplay loop muted style="width: 235px; height: 235px; padding: 5px 10px;"></video>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 2px 10px;">"Time-lapse of a butterfly metamorphosis from ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a busy nighttime city intersection ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a landscape transitioning from a ..."</td>
+            <td style="padding: 2px 10px;">"Time-lapse of a strawberry rotting: starting with ..."</td>
+        </tr>
+    </tbody>
+</table>
 
 
 ### :mortar_board: Evaluation Results
 
 <p align="center">
-  <img src="https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/ProjectPage/static/images/results_open+close.jpg?raw=true"/>
+  <img src="https://github.com/user-attachments/assets/2f8c36ff-24a5-47fd-bffa-cfe719316879"/>
 </p>
 
 
@@ -401,4 +425,3 @@ If you find our paper and code useful in your research, please consider giving a
   <img src="https://contrib.rocks/image?repo=PKU-YuanGroup/ChronoMagic-Bench&anon=true" />
 
 </a>
-
