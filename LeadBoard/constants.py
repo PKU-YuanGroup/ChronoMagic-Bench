@@ -33,7 +33,7 @@ SUBMIT_INTRODUCTION = """# Submit Introduction
 
 
     ## Submit Example
-    For example, if you want to upload Video-ChatGPT's result in the leaderboard, you need to:
+    For example, if you want to upload result in the leaderboard, you need to:
     1. Fill in 'MagicTime' in 'Model Name' if it is your first time to submit your result (You can leave 'Revision Model Name' blank).
     2. Fill in 'MagicTime' in 'Revision Model Name' if you want to update your result (You can leave 'Model Name' blank).
     3. Select ‘Backbone Type’ (DiT or U-Net).
