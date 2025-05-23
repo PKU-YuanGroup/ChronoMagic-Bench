@@ -3,7 +3,7 @@ MODEL_INFO = ["Model", "Backbone"]
 ALL_RESULTS = ["UMT-FVD↓", "UMTScore↑", "MTScore↑", "CHScore↑", "GPT4o-MTScore↑"]
 
 SELECTED_RESULTS = ["UMT-FVD↓", "UMTScore↑", "MTScore↑", "CHScore↑", "GPT4o-MTScore↑"]
-SELECTED_RESULTS_150 = ["UMT-FVD↓", "UMTScore↑", "MTScore↑", "GPT4o-MTScore↑"]
+SELECTED_RESULTS_150 = ["UMT-FVD↓", "UMTScore↑", "MTScore↑", "CHScore↑", "GPT4o-MTScore↑"]
 
 DATA_TITILE_TYPE = ["markdown", 'markdown', "number", "number", "number", "number", "number"]
 
@@ -19,7 +19,7 @@ LEADERBORAD_INTRODUCTION = """
 
     # ChronoMagic-Bench Leaderboard
     
-    Welcome to the leaderboard of the ChronoMagic-Bench! 
+    Welcome to the leaderboard of the ChronoMagic-Bench! (**NeurIPS 2024 D&B Spotlight**)
      
     🏆ChronoMagic-Bench represents the inaugural benchmark dedicated to assessing T2V models' capabilities in generating time-lapse videos that demonstrate significant metamorphic amplitude and temporal coherence. The benchmark probes T2V models for their physics, biology, and chemistry capabilities, in a free-form text control.
     
@@ -28,19 +28,13 @@ LEADERBORAD_INTRODUCTION = """
     [GitHub](https://github.com/PKU-YuanGroup/ChronoMagic-Bench) | [arXiv](https://arxiv.org/abs/2406.18522) | [Home Page](https://pku-yuangroup.github.io/ChronoMagic-Bench/) | [ChronoMagic-Pro](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Pro) | [ChronoMagic-ProH](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-ProH)
 """
 
-SUBMIT_INTRODUCTION = """# Submit Introduction
-    Obtain `ChronoMagic-Bench-Input.json` from our [github repository](https://github.com/PKU-YuanGroup/ChronoMagic-Bench) after evaluation.
-
-
-    ## Submit Example
-    For example, if you want to upload result in the leaderboard, you need to:
-    1. Fill in 'MagicTime' in 'Model Name' if it is your first time to submit your result (You can leave 'Revision Model Name' blank).
-    2. Fill in 'MagicTime' in 'Revision Model Name' if you want to update your result (You can leave 'Model Name' blank).
-    3. Select ‘Backbone Type’ (DiT or U-Net).
-    4. Fill in 'https://github.com/x/x' in 'Model Link'.
-    5. Upload `ChronoMagic-Bench-Input.json`.
-    6. Click the 'Submit Eval' button.
-    7. Click 'Refresh' to obtain the uploaded leaderboard.
+SUBMIT_INTRODUCTION = """# Submission Guidelines
+    1. Fill in *'Model Name'* if it is your first time to submit your result **or** Fill in *'Revision Model Name'* if you want to update your result.
+    2. Select *‘Backbone Type’* (DiT or U-Net).
+    3. Fill in your home page to *'Model Link'*.
+    4. After evaluation, follow the guidance in the [github repository](https://github.com/PKU-YuanGroup/ChronoMagic-Bench) to obtain `ChronoMagic-Bench-Input.json` and upload it here.
+    5. Click the 'Submit Eval' button.
+    6. Click 'Refresh' to obtain the uploaded leaderboard.
 """
 
 TABLE_INTRODUCTION = """In the table below, we summarize each task performance of all the models.
