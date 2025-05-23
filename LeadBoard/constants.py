@@ -42,9 +42,11 @@ TABLE_INTRODUCTION = """In the table below, we summarize each task performance o
     """
 
 CITATION_BUTTON_LABEL = "Copy the following snippet to cite these results"
-CITATION_BUTTON_TEXT = r"""@article{yuan2024magictime,
-  title={MagicTime: Time-lapse Video Generation Models as Metamorphic Simulators},
-  author={Yuan, Shenghai and Huang, Jinfa and Shi, Yujun and Xu, Yongqi and Zhu, Ruijie and Lin, Bin and Cheng, Xinhua and Yuan, Li and Luo, Jiebo},
-  journal={arXiv preprint arXiv:2404.05014},
+CITATION_BUTTON_TEXT = r"""@article{yuan2024chronomagic,
+  title={Chronomagic-bench: A benchmark for metamorphic evaluation of text-to-time-lapse video generation},
+  author={Yuan, Shenghai and Huang, Jinfa and Xu, Yongqi and Liu, Yaoyang and Zhang, Shaofeng and Shi, Yujun and Zhu, Rui-Jie and Cheng, Xinhua and Luo, Jiebo and Yuan, Li},
+  journal={Advances in Neural Information Processing Systems},
+  volume={37},
+  pages={21236--21270},
   year={2024}
 }"""
