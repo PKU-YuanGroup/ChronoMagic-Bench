@@ -244,7 +244,7 @@ See numeric values at our [Leaderboard](https://huggingface.co/spaces/BestWishYs
 or you can run it locally:
 
 ```bash
-cd LeadBoard
+cd LeaderBoard
 python app.py
 ```
 
@@ -347,7 +347,7 @@ python evaluate.py \
   --openai_api "sk-UybXXX" \
 ```
 
-If you only want to evaluate any one of the metrics instead of calculating all of them, you can follow the step below. Before running, please modify the parameters in *<u>'xxx.sh'</u>* as needed. (If you want to obtain the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) to submit to the [leaderboard](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench), you can organize the output files in *MTScore / CHScore / GPT4o-MTScore* according to ['results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/results) and then proceed with the following steps.)
+If you only want to evaluate any one of the metrics instead of calculating all of them, you can follow the step below. Before running, please modify the parameters in *<u>'xxx.sh'</u>* as needed. (If you want to obtain the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeaderBoard/file/ChronoMagic-Bench-Input.json) to submit to the [leaderboard](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench), you can organize the output files in *MTScore / CHScore / GPT4o-MTScore* according to ['results'](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/results) and then proceed with the following steps.)
 
 ```bash
 # for MTScore
@@ -375,7 +375,7 @@ python get_uploaded_json.py \
   --output_path results
 ```
 
-After completing the above steps, you will obtain [ChronoMagic-Bench-Input.json](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json), and then you need to manually fill the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) with UMT-FVD and UMTScore (as we calculate them separately). Finally, you can submit the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeadBoard/file/ChronoMagic-Bench-Input.json) to [HuggingFace](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench).
+After completing the above steps, you will obtain [ChronoMagic-Bench-Input.json](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeaderBoard/file/ChronoMagic-Bench-Input.json), and then you need to manually fill the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeaderBoard/file/ChronoMagic-Bench-Input.json) with UMT-FVD and UMTScore (as we calculate them separately). Finally, you can submit the [JSON](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/blob/main/LeaderBoard/file/ChronoMagic-Bench-Input.json) to [HuggingFace](https://huggingface.co/spaces/BestWishYsh/ChronoMagic-Bench).
 
 ## :surfer: Sampled Videos
 
