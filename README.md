@@ -41,6 +41,10 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 > Bin Lin, Yunyang Ge and Xinhua Cheng etc. <br>
 [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/PKU-YuanGroup/Open-Sora-Plan)  [![github](https://img.shields.io/github/stars/PKU-YuanGroup/Open-Sora-Plan.svg?style=social)](https://github.com/PKU-YuanGroup/Open-Sora-Plan) [![arXiv](https://img.shields.io/badge/Arxiv-2412.00131-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2412.00131) <br>
 >
+> [**Helios: Real Real-Time Long Video Generation Model**](https://arxiv.org/abs/2603.04379) <br>
+> Shenghai Yuan, Jinfa Huang and Xianyi He etc. <br>
+> [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/PKU-YuanGroup/Helios)  [![github](https://img.shields.io/github/stars/PKU-YuanGroup/Helios.svg?style=social)](https://github.com/PKU-YuanGroup/Helios) [![arXiv](https://img.shields.io/badge/Arxiv-2603.04379-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2603.04379) <br>
+>
 > [**OpenS2V-Nexus: A Detailed Benchmark and Million-Scale Dataset for Subject-to-Video Generation**](https://arxiv.org/abs/2505.20292) <br>
 > Shenghai Yuan, Xianyi He and Yufan Deng etc. <br>
 > [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/PKU-YuanGroup/OpenS2V-Nexus)  [![github](https://img.shields.io/github/stars/PKU-YuanGroup/OpenS2V-Nexus.svg?style=social)](https://github.com/PKU-YuanGroup/OpenS2V-Nexus) [![arXiv](https://img.shields.io/badge/Arxiv-2505.20292-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2505.20292) <br>
@@ -58,6 +62,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 ## 📣 News
 
 * ⏳⏳⏳ Evaluate more Text-to-Video Generation Models via *ChronoMagic-Bench*.
+* `[2026.03.08]`  👋 We introduct [Helios](https://github.com/PKU-YuanGroup/Helios), a breakthrough video generation model that achieves minute-scale, high-quality video synthesis at **19.5 FPS on a single H100** GPU — without relying on conventional long video anti-drifting strategies or standard video acceleration techniques. 
 * `[2024.12.31]`  🔥 We further evaluate the widely popular [Sora](https://openai.com/sora/), which struggles to generate a diverse range of time-lapse videos effectively. This suggests that the generation of high-quality metamorphic videos remains an area in need of further exploration. The results are available [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results/Closed_Source).
 * `[2024.09.30]`  🔥 We have updated the calculation of the CHScore, making it more robust to temporally coherent disappearance of points. You can click [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/CHScore) for detailed implementation.
 * `[2024.09.26]`  ✨ Our paper is accepted by **NeurIPS 2024 D&B track** as a **spotlight** present.
