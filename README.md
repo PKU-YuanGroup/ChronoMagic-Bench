@@ -62,7 +62,7 @@ This repository is the official implementation of ChronoMagic-Bench, a benchmark
 ## 📣 News
 
 * ⏳⏳⏳ Evaluate more Text-to-Video Generation Models via *ChronoMagic-Bench*.
-* `[2026.03.08]`  👋 We introduct [Helios](https://github.com/PKU-YuanGroup/Helios), a breakthrough video generation model that achieves minute-scale, high-quality video synthesis at **19.5 FPS on a single H100** GPU — without relying on conventional long video anti-drifting strategies or standard video acceleration techniques. Welcome to check [Technical Report](https://huggingface.co/papers/2603.04379)!
+* `[2026.03.08]`  👋 We introduce [Helios](https://github.com/PKU-YuanGroup/Helios), a breakthrough video generation model that achieves minute-scale, high-quality video synthesis at **19.5 FPS on a single H100** GPU — without relying on conventional long video anti-drifting strategies or standard video acceleration techniques. Welcome to check [Technical Report](https://huggingface.co/papers/2603.04379)!
 * `[2024.12.31]`  🔥 We further evaluate the widely popular [Sora](https://openai.com/sora/), which struggles to generate a diverse range of time-lapse videos effectively. This suggests that the generation of high-quality metamorphic videos remains an area in need of further exploration. The results are available [here](https://huggingface.co/datasets/BestWishYsh/ChronoMagic-Bench/tree/main/Results/Closed_Source).
 * `[2024.09.30]`  🔥 We have updated the calculation of the CHScore, making it more robust to temporally coherent disappearance of points. You can click [here](https://github.com/PKU-YuanGroup/ChronoMagic-Bench/tree/main/CHScore) for detailed implementation.
 * `[2024.09.26]`  ✨ Our paper is accepted by **NeurIPS 2024 D&B track** as a **spotlight** present.
